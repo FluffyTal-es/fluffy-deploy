@@ -20,7 +20,7 @@ jobs:
           remote_user: ${{ secrets.DEPLOY_USER }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
           local_dir: "."
-          remote_dir: "/five_resources"
+          remote_dir: "/root/fivem_resources"
         run: |
           mkdir ~/.ssh
           mkdir -p resources/[configs]
