@@ -32,7 +32,7 @@ jobs:
     - name: "Find repos to deploy"
       id: set-matrix
       run: |
-        [ "${{ github.event.inputs.repo }}" -eq all ] && matrix=all || matrix=${{ github.event.inputs.repo }}            
+        [ "${{ github.event.inputs.repo }}" = "all" ] && matrix=all || matrix=${{ github.event.inputs.repo }}            
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
 
   clone:
