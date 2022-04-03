@@ -25,7 +25,7 @@ jobs:
         with:
           repository: FluffyTal-es/fluffy-dev-tools
           token: ${{ secrets.DEPLOY_TOKEN }}
-          path: 'resources/[dev]'
+          path: 'resources/[dev]/fluffy-dev-tools'
 
       - name: "Quick check"
         run: |
@@ -39,6 +39,8 @@ jobs:
           path: '.'
 
   build:
+    needs: [prepare]
+    
     runs-on: ubuntu-latest
 
     steps:
