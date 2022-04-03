@@ -7,8 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@master
-      - name: "Build deployment code for standalone"
+      - name: "Clone config Repository"
+        uses: actions/checkout@master
+        with:
+          repository: FluffyTal-es/fluffy-configs
+          token: ${{ secrets.DEPLOY_TOKEN }}
+
+      - name: "Deploy configs on server"
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
@@ -16,9 +21,6 @@ jobs:
           remote_key: ${{ secrets.DEPLOY_KEY }}
           local_dir: "."
           remote_dir: "/five_resources"
-        with:
-          repository: FluffyTal-es/fluffy-configs
-          token: ${{ secrets.DEPLOY_TOKEN }}
         run: |
           mkdir ~/.ssh
           mkdir -p resources/[configs]
