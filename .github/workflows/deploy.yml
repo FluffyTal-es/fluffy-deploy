@@ -32,8 +32,8 @@ jobs:
     - name: "Find repos to deploy"
       id: set-matrix
       run: |
-        [ "${{ github.event.inputs.repo }}" = "all" ] && matrix=all || matrix=${{ github.event.inputs.repo }}
-        echo $matrix
+        [ "${{ github.event.inputs.repo }}" = "all" ] && repos=all || repos=${{ github.event.inputs.repo }}
+        matrix=$(jq 'map($repos)')
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
 
   clone:
