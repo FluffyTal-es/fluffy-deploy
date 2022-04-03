@@ -39,6 +39,9 @@ jobs:
       with:
         repos: ${{ github.event.inputs.repo }}
 
+    - name: debug
+      run: echo ${{ steps.set-matrix.outputs.matrix }}
+
   clone:
     needs: [prepare]
     runs-on: ubuntu-latest
