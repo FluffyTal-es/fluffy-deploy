@@ -37,7 +37,7 @@ jobs:
       uses: ./
       id: set-matrix
       with:
-        repos: ${{ github.event.inputs.repos }}
+        repos: ${{ github.event.inputs.repo }}
 
   clone:
     needs: [prepare]
