@@ -8341,7 +8341,7 @@ const getReposToDeploy = async () => {
 
 (async () => {
   try {
-    const r = getAllRepos()
+    const r = getReposToDeploy()
     core.setOutput('matrix', r)
   } catch (error) {
     core.setFailed(error.message);
