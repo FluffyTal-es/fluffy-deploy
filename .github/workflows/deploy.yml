@@ -28,5 +28,5 @@ jobs:
           chmod 600 ~/.ssh/id_github
           mv config/* resources/[configs]/
           rm -r config
-          rsync -avzr --delete -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
+          rsync -avzrI -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
           rm ~/.ssh/id_github
