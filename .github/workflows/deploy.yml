@@ -28,14 +28,15 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-    - id: set-matrix
     - name: "Find repos to deploy"
+      id: set-matrix
       if:  ${{ github.event.inputs.repo == 'all' }}
       run: |
         branchName=$(echo '${{ github.ref }}' | sed 's,refs/heads/,,g')  
         matrix=$(jq --arg branchName "$branchName" 'map(. | select((.runOn==$branchName) or (.runOn=="always")) )' matrix_includes.json)                
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
     - name: "Find repo to deploy"
+      id: set-matrix
       if:  ${{ github.event.inputs.repo != 'all' }}
       run: |
         matrix=${{ github.event.inputs.repo }}                
@@ -46,6 +47,7 @@ jobs:
     runs-on: ${{ matrix.runs_on }}
     strategy:
       matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
+    
     steps:
       - name: "Clone config Repository"
         uses: actions/checkout@master
