@@ -1,9 +1,9 @@
-name: "deploy new version to server"
+name: "deploy"
 
 on:
   workflow_dispatch:
 jobs:
-  build:
+  prepare:
     runs-on: ubuntu-latest
 
     steps:
@@ -12,6 +12,39 @@ jobs:
         with:
           repository: FluffyTal-es/fluffy-configs
           token: ${{ secrets.DEPLOY_TOKEN }}
+          path: '.'
+      
+      - name: "Move configs to right path"
+        run: |
+          mkdir -p resources/[configs]
+          mv config/* resources/[configs]/
+          rm -r config
+
+      - name: "Clone dev-tools Repository"
+        uses: actions/checkout@master
+        with:
+          repository: FluffyTal-es/fluffy-dev-tools
+          token: ${{ secrets.DEPLOY_TOKEN }}
+          path: 'resources/[dev]'
+
+      - name: "Quick check"
+        run: |
+          ls -al
+          ls -al resources/[dev]
+          ls -al resources/[configs]/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: fluffytales
+          path: '.'
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: fluffytales
 
       - name: "Deploy configs on server"
         env:
@@ -23,10 +56,7 @@ jobs:
           remote_dir: "/root/fivem_resources"
         run: |
           mkdir ~/.ssh
-          mkdir -p resources/[configs]
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
-          mv config/* resources/[configs]/
-          rm -r config
           rsync -avzrI -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
           rm ~/.ssh/id_github
