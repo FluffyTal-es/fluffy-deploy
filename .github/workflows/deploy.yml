@@ -27,19 +27,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+   
     steps:
     - name: "Find repos to deploy"
       id: set-matrix
       if:  ${{ github.event.inputs.repo == 'all' }}
       run: |
-        branchName=$(echo '${{ github.ref }}' | sed 's,refs/heads/,,g')  
-        matrix=$(jq --arg branchName "$branchName" 'map(. | select((.runOn==$branchName) or (.runOn=="always")) )' matrix_includes.json)                
-        echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
-    - name: "Find repo to deploy"
-      id: set-matrix
-      if:  ${{ github.event.inputs.repo != 'all' }}
-      run: |
-        matrix=${{ github.event.inputs.repo }}                
+        [ "${{ github.event.inputs.repo }}" -eq all ] && matrix=all || matrix=${{ github.event.inputs.repo }}            
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
 
   clone:
