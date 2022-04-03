@@ -28,16 +28,15 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+    - id: set-matrix
     - name: "Find repos to deploy"
       if:  ${{ github.event.inputs.repo == 'all' }}
-      id: set-matrix
       run: |
         branchName=$(echo '${{ github.ref }}' | sed 's,refs/heads/,,g')  
         matrix=$(jq --arg branchName "$branchName" 'map(. | select((.runOn==$branchName) or (.runOn=="always")) )' matrix_includes.json)                
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
     - name: "Find repo to deploy"
       if:  ${{ github.event.inputs.repo != 'all' }}
-      id: set-matrix
       run: |
         matrix=${{ github.event.inputs.repo }}                
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
