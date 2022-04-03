@@ -31,7 +31,6 @@ jobs:
     steps:
     - name: "Find repos to deploy"
       id: set-matrix
-      if:  ${{ github.event.inputs.repo == 'all' }}
       run: |
         [ "${{ github.event.inputs.repo }}" -eq all ] && matrix=all || matrix=${{ github.event.inputs.repo }}            
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
