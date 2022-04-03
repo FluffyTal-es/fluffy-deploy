@@ -2,7 +2,36 @@ name: "deploy"
 
 on:
   workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Which repository to deploy'
+        required: true
+        default: 'all' 
+        type: choice
+        options:
+        - all
+        - fluffy-configs
+        - fluffy-dev-tools
+      dev:
+        description: 'Deploy to development?'
+        required: true
+        default: 'yes' 
+        type: choice
+        options:
+        - yes
+        - no
 jobs:
+  matrix_prep:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - name: "Find repos to deploy"
+    - id: set-matrix
+      run: |
+        branchName=$(echo '${{ github.ref }}' | sed 's,refs/heads/,,g')  
+        matrix=$(jq --arg branchName "$branchName" 'map(. | select((.runOn==$branchName) or (.runOn=="always")) )' matrix_includes.json)                
+        echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
   prepare:
     runs-on: ubuntu-latest
 
