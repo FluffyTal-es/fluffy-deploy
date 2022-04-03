@@ -30,11 +30,14 @@ jobs:
 
     # https://stackoverflow.com/a/65434401/3168392 use this to define a matrix for all repos
     steps:
-    - name: "Find repos to deploy"
+    - name: Fetch local action
+      uses: actions/checkout@v3
+
+    - name: Find repos to deploy
+      uses: ./
       id: set-matrix
-      run: |
-        matrix=$(jq 'map("${{ github.event.inputs.repo }}")')
-        echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
+      with:
+        repos: ${{ github.event.inputs.repos }}
 
   clone:
     needs: [prepare]
@@ -43,21 +46,21 @@ jobs:
       matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
     
     steps:
-      - name: "Clone config Repository"
+      - name: Clone config Repository
         uses: actions/checkout@master
         with:
           repository: FluffyTal-es/${{ matrix }}
           token: ${{ secrets.DEPLOY_TOKEN }}
           path: '.'
       
-      - name: "Move configs to right path"
+      - name: Move configs to right path
         if:  ${{ matrix == 'fluffy-configs' }}
         run: |
           mkdir -p resources/[configs]
           mv config/* resources/[configs]/
           rm -r config
 
-      - name: "Clone dev-tools Repository"
+      - name: Clone dev-tools Repository
         if:  ${{ matrix == '/fluffy-dev-tools' }}
         uses: actions/checkout@master
         with:

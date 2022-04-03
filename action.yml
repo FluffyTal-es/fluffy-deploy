@@ -1,0 +1,12 @@
+name: Get all the repos
+description: Fetch all repos matching the input
+runs:
+  using: node16
+  main: index.js
+inputs:
+  repos:
+    description: 'Which repository to deploy'
+    required: true
+outputs:
+  matrix:
+    description: All repos matching repo choice

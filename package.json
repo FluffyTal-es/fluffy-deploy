@@ -1,0 +1,24 @@
+{
+  "name": "fluffy-deploy",
+  "version": "1.0.0",
+  "description": "Fluffy Deploy helper",
+  "main": "deploy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FluffyTal-es/fluffy-deploy.git"
+  },
+  "author": "MMenistr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FluffyTal-es/fluffy-deploy/issues"
+  },
+  "homepage": "https://github.com/FluffyTal-es/fluffy-deploy#readme",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.1",
+    "@octokit/rest": "^18.12.0"
+  }
+}
