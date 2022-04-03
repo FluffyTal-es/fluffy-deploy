@@ -23,8 +23,8 @@ const getReposToDeploy = async () => {
 
 (async () => {
   try {
-    const r = getReposToDeploy()
-    core.setOutput('matrix', JSON.stringify(r))
+    const r = await getReposToDeploy()
+    core.setOutput('matrix', r)
   } catch (error) {
     core.setFailed(error.message)
   }
