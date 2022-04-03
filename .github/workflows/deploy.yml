@@ -27,18 +27,18 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
-   
+
+    # https://stackoverflow.com/a/65434401/3168392 use this to define a matrix for all repos
     steps:
     - name: "Find repos to deploy"
       id: set-matrix
       run: |
-        [ "${{ github.event.inputs.repo }}" = "all" ] && repos=all || repos=${{ github.event.inputs.repo }}
-        matrix=$(jq 'map($repos)')
+        matrix=$(jq 'map("${{ github.event.inputs.repo }}")')
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
 
   clone:
     needs: [prepare]
-    runs-on: ${{ matrix.runs_on }}
+    runs-on: ubuntu-latest
     strategy:
       matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
     
