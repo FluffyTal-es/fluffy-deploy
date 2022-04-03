@@ -49,19 +49,19 @@ jobs:
       - name: Clone config Repository
         uses: actions/checkout@master
         with:
-          repository: FluffyTal-es/${{ matrix }}
+          repository: ${{ matrix.name }}
           token: ${{ secrets.DEPLOY_TOKEN }}
           path: '.'
       
       - name: Move configs to right path
-        if:  ${{ matrix == 'fluffy-configs' }}
+        if:  ${{ matrix.name == 'FluffyTal-es/fluffy-configs' }}
         run: |
           mkdir -p resources/[configs]
           mv config/* resources/[configs]/
           rm -r config
 
       - name: Clone dev-tools Repository
-        if:  ${{ matrix == '/fluffy-dev-tools' }}
+        if:  ${{ matrix.name == 'FluffyTal-es/fluffy-dev-tools' }}
         uses: actions/checkout@master
         with:
           repository: FluffyTal-es/fluffy-dev-tools

@@ -15,10 +15,10 @@ const getReposToDeploy = async () => {
         type: 'private',
       })
 
-    return repos.data.map(repo => repo.full_name)
+    return repos.data.map(repo => { name: repo.full_name })
   }
 
-  return [`FluffyTal-es/${reposToDeploy}`]
+  return [{ name: `FluffyTal-es/${reposToDeploy}` }]
 }
 
 (async () => {
@@ -26,7 +26,7 @@ const getReposToDeploy = async () => {
     const r = getReposToDeploy()
     core.setOutput('matrix', r)
   } catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error.message)
   }
 })()
 
