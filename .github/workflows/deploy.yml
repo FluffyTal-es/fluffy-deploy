@@ -12,6 +12,7 @@ on:
         - all
         - fluffy-configs
         - fluffy-dev-tools
+        - fluffy-nonpc
       dev:
         description: 'Deploy to development?'
         required: true
@@ -20,47 +21,54 @@ on:
         options:
         - yes
         - no
+
 jobs:
-  matrix_prep:
+  prepare:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - name: "Find repos to deploy"
-    - id: set-matrix
+      if:  ${{ github.event.inputs.repo == 'all' }}
+      id: set-matrix
       run: |
         branchName=$(echo '${{ github.ref }}' | sed 's,refs/heads/,,g')  
         matrix=$(jq --arg branchName "$branchName" 'map(. | select((.runOn==$branchName) or (.runOn=="always")) )' matrix_includes.json)                
         echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
-  prepare:
-    runs-on: ubuntu-latest
+    - name: "Find repo to deploy"
+      if:  ${{ github.event.inputs.repo != 'all' }}
+      id: set-matrix
+      run: |
+        matrix=${{ github.event.inputs.repo }}                
+        echo ::set-output name=matrix::{\"include\":$(echo $matrix)}\"
 
+  clone:
+    needs: prepare
+    runs-on: ${{ matrix.runs_on }}
+    strategy:
+      matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
     steps:
       - name: "Clone config Repository"
         uses: actions/checkout@master
         with:
-          repository: FluffyTal-es/fluffy-configs
+          repository: FluffyTal-es/${{ matrix }}
           token: ${{ secrets.DEPLOY_TOKEN }}
           path: '.'
       
       - name: "Move configs to right path"
+        if:  ${{ matrix == 'fluffy-configs' }}
         run: |
           mkdir -p resources/[configs]
           mv config/* resources/[configs]/
           rm -r config
 
       - name: "Clone dev-tools Repository"
+        if:  ${{ matrix == '/fluffy-dev-tools' }}
         uses: actions/checkout@master
         with:
           repository: FluffyTal-es/fluffy-dev-tools
           token: ${{ secrets.DEPLOY_TOKEN }}
           path: 'resources/[dev]/fluffy-dev-tools'
-
-      - name: "Quick check"
-        run: |
-          ls -al
-          ls -al resources/[dev]
-          ls -al resources/[configs]/
 
       - uses: actions/upload-artifact@v2
         with:
@@ -68,7 +76,7 @@ jobs:
           path: '.'
 
   build:
-    needs: [prepare]
+    needs: [clone]
     
     runs-on: ubuntu-latest
 
