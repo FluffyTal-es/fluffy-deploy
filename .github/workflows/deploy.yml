@@ -26,7 +26,7 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+      matrix: ${{ needs.prepare.outputs.matrix }}
 
     # https://stackoverflow.com/a/65434401/3168392 use this to define a matrix for all repos
     steps:
