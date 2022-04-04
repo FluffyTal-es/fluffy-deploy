@@ -8324,7 +8324,6 @@ const octokit = new Octokit({
 })
 
 const isResourceForSpawn = (name) => {
-
   if (['houses', 'apartments', 'spawn', 'multicharacter', 'clothing'].indexOf(name.replace('qb-', '')))
     return true
 
@@ -8365,11 +8364,7 @@ const getReposToDeploy = async () => {
 
 (async () => {
   try {
-    if (core.getInput('use-recipe') === false) {
-      const r = await getReposToDeploy()
-      return core.setOutput('matrix', { include: r })
-    }
-
+    const r = await getReposToDeploy()
     return core.setOutput('matrix', { include: r })
   } catch (error) {
     core.setFailed(error.message)
