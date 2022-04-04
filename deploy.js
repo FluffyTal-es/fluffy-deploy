@@ -5,10 +5,19 @@ const octokit = new Octokit({
   auth: process.env.DEPLOY_TOKEN
 })
 
+const isResourceForSpawn = (name) => {
+
+  if (['houses', 'apartments', 'spawn', 'multicharacter', 'clothing'].indexOf(name.replace('qb-', '')))
+    return true
+
+  return false
+}
+
 const determineFolder = (name) => {
   if (name.indexOf('job') !== -1) return '[jobs]'
   else if (name.indexOf('dev') !== -1) return '[dev]'
   else if (name.indexOf('configs') !== -1) return '[configs]'
+  else if (isResourceForSpawn(name) !== -1) return '[spawn]'
   else return '[fluffy]'
 }
 

@@ -1,0 +1,32 @@
+on:
+  workflow_run:
+    workflows:
+      - deploy
+    types: 
+      - completed
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: "Hurray!"
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          color: "#00ff72"
+          username: "FluffyTales GitBot"
+          message: "${{ github.event.inputs.repo }} resource deployed on server!"
+
+  on-failure:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: "Nay!"
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.WEBHOOK_ID }}
+          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          color: "#ff006a"
+          username: "FluffyTales GitBot"
+          message: "${{ github.event.inputs.repo }} resource not deployed on server!"
