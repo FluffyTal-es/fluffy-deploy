@@ -1,3 +1,5 @@
+name: "discord"
+
 on:
   workflow_run:
     workflows:
@@ -16,7 +18,7 @@ jobs:
           webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
           color: "#00ff72"
           username: "FluffyTales GitBot"
-          message: "${{ github.event.inputs.repo }} resource deployed on server!"
+          message: "Resources successfully deployed on server!  \n ${{ github.event.workflow.url}}"
 
   on-failure:
     runs-on: ubuntu-latest
@@ -29,4 +31,4 @@ jobs:
           webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
           color: "#ff006a"
           username: "FluffyTales GitBot"
-          message: "${{ github.event.inputs.repo }} resource not deployed on server!"
+          message: "Resource not deployed on server! \n ${{ github.event.workflow.url}}"
