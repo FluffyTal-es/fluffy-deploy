@@ -2,7 +2,7 @@ const { Octokit } = require('@octokit/rest')
 const core = require('@actions/core')
 
 const octokit = new Octokit({
-  auth: process.env.DEPLOY_TOKEN
+  auth: core.getInput('token')
 })
 
 const isResourceForSpawn = (name) => {

@@ -31,6 +31,7 @@ jobs:
       uses: ./
       id: set-matrix
       with:
+        token: ${{ secrets.DEPLOY_TOKEN }}
         repos: ${{ github.event.inputs.repo }}
 
     - name: debug
@@ -61,7 +62,7 @@ jobs:
           cp resources/\[configs\]/fluffy-configs/config/*.cfg resources/[\configs\]/
           mv resources/\[configs\]/fluffy-configs/server.cfg ./server.cfg
           rm -r resources/\[configs\]/fluffy-configs
-          
+
       - name: Delete related qb resource 
         uses: appleboy/ssh-action@master
         with:

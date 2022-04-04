@@ -4,6 +4,9 @@ runs:
   using: node16
   main: dist/index.js
 inputs:
+  token:
+    description: 'GitHub API token'
+    required: true
   repos:
     description: 'Which repository to deploy'
     required: true

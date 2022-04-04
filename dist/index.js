@@ -8320,7 +8320,7 @@ const { Octokit } = __nccwpck_require__(6980)
 const core = __nccwpck_require__(6565)
 
 const octokit = new Octokit({
-  auth: process.env.DEPLOY_TOKEN
+  auth: core.getInput('token')
 })
 
 const isResourceForSpawn = (name) => {
