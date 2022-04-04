@@ -93,7 +93,7 @@ jobs:
           remote_user: ${{ secrets.DEPLOY_USER }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
           local_dir: "."
-          remote_dir: "/root/fivem_resources"
+          remote_dir: "/opt/fivem_resources"
         run: |
           mkdir ~/.ssh
           echo "$remote_key" > ~/.ssh/id_github

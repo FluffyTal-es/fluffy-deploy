@@ -2,7 +2,7 @@ const { Octokit } = require('@octokit/rest')
 const core = require('@actions/core')
 
 const octokit = new Octokit({
-  auth: process.env.DEPLOY_TOKEN || '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'
+  auth: process.env.DEPLOY_TOKEN
 })
 
 const determineFolder = (name) => {
@@ -26,7 +26,7 @@ const getReposToDeploy = async () => {
       qb: repo.name.replace('fluffy-', 'qb-'),
       name: repo.name,
       path: `resources/${determineFolder(repo.name)}/${repo.name}`
-    }))
+    })).filter(repo => ['fluffy-deploy', 'fluffy-recipe'].indexOf(repo.name) === -1)
   }
 
   return [{ 
@@ -38,8 +38,12 @@ const getReposToDeploy = async () => {
 
 (async () => {
   try {
-    const r = await getReposToDeploy()
-    core.setOutput('matrix', { include: r })
+    if (core.getInput('use-recipe') === false) {
+      const r = await getReposToDeploy()
+      return core.setOutput('matrix', { include: r })
+    }
+
+    return core.setOutput('matrix', { include: r })
   } catch (error) {
     core.setFailed(error.message)
   }
