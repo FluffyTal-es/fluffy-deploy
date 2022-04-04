@@ -8,7 +8,7 @@ on:
         required: true
         default: 'all' 
         type: string
-      dev:
+      live:
         description: 'Deploy to live server?'
         required: true
         default: 'yes' 
