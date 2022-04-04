@@ -8324,8 +8324,14 @@ const octokit = new Octokit({
 })
 
 const isResourceForSpawn = (name) => {
-  if (['houses', 'apartments', 'spawn', 'multicharacter', 'clothing'].indexOf(name.replace('qb-', '')))
-    return true
+  if ([
+    'houses', 
+    'apartments', 
+    'spawn', 
+    'multicharacter', 
+    'clothing'].indexOf(name.replace('qb-', ''))) {
+      return true
+    }
 
   return false
 }
@@ -8348,15 +8354,11 @@ const getReposToDeploy = async () => {
         type: 'private',
       })
 
-    const matrix = repos.data.map(repo => ({ 
+    return repos.data.map(repo => ({ 
       qb: repo.name.replace('fluffy-', 'qb-'),
       name: repo.name,
       path: `resources/${determineFolder(repo.name)}/${repo.name}`
-    })).filter(repo => (['fluffy-deploy', 'fluffy-recipe'].indexOf(repo.name) === -1))
-
-    core.debug(matrix)
-
-    return matrix
+    })).filter(repo => ['fluffy-deploy', 'fluffy-recipe'].indexOf(repo.name) === -1)
   }
 
   return [{ 
@@ -8374,8 +8376,6 @@ const getReposToDeploy = async () => {
     core.setFailed(error.message)
   }
 })()
-
-
 
 })();
 
