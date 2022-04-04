@@ -61,10 +61,12 @@ jobs:
 
       - name: "Move configs to right path"
         if: ${{ matrix.name }} == 'FluffyTal-es/fluffy-configs'
+        env: 
+          CONFIG: ${{ matrix.name }}
         run: |
-          mv ${{ matrix.path }}/config/* resources/[configs]/
-          rm -r ${{ matrix.path }}/config
-          mv -r ${{ matrix.path }}/server.cfg ./server.cfg
+          mv ${CONFIG}/config/* resources/[configs]/
+          rm -r ${CONFIG}/config
+          mv -r ${CONFIG}/server.cfg ./server.cfg
 
       - uses: actions/upload-artifact@v2
         with:
