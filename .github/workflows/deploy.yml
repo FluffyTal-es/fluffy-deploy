@@ -55,6 +55,16 @@ jobs:
           repository: ${{ matrix.name }}
           token: ${{ secrets.DEPLOY_TOKEN }}
           path:  ${{ matrix.path }}
+      
+      - name: Remove .git folder
+        run: rm -rf ${{ matrix.path }}/.git
+
+      - name: "Move configs to right path"
+        if: ${{ matrix.name }} == 'FluffyTal-es/fluffy-configs'
+        run: |
+          mv ${{ matrix.path }}/config/* resources/[configs]/
+          rm -r ${{ matrix.path }}/config
+          mv -r ${{ matrix.path }}/server.cfg ./server.cfg
 
       - uses: actions/upload-artifact@v2
         with:
