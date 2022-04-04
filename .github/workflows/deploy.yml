@@ -9,7 +9,7 @@ on:
         default: 'all' 
         type: string
       dev:
-        description: 'Deploy to development?'
+        description: 'Deploy to live server?'
         required: true
         default: 'yes' 
         type: choice
@@ -23,7 +23,6 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
-    # https://stackoverflow.com/a/65434401/3168392 use this to define a matrix for all repos
     steps:
     - name: Fetch local action
       uses: actions/checkout@v3
