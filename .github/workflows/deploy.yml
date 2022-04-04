@@ -65,7 +65,7 @@ jobs:
           CONFIG: ${{ matrix.path }}
         run: |
           cp resources/\[configs\]/fluffy-configs/config/*.cfg resources/[\configs\]/
-          mv -r ${resources/\[configs\]/fluffy-configs/server.cfg ./server.cfg
+          mv -r resources/\[configs\]/fluffy-configs/server.cfg ./server.cfg
           rm -r resources/\[configs\]/fluffy-configs
 
       - uses: actions/upload-artifact@v2
