@@ -14,8 +14,8 @@ on:
         default: 'yes' 
         type: choice
         options:
-        - yes
-        - no
+        - 'yes'
+        - 'no'
 
 jobs:
   prepare:
