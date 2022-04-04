@@ -52,7 +52,7 @@ jobs:
       - name: Clone resource repository
         uses: actions/checkout@master
         with:
-          repository: ${{ matrix.name }}
+          repository: FluffyTal-es/${{ matrix.name }}
           token: ${{ secrets.DEPLOY_TOKEN }}
           path:  ${{ matrix.path }}
       
@@ -60,13 +60,22 @@ jobs:
         run: rm -rf ${{ matrix.path }}/.git
 
       - name: "Move configs to right path"
-        if: ${{ matrix.name }} == 'FluffyTal-es/fluffy-configs'
+        if: ${{ matrix.name }} == 'fluffy-configs'
         env: 
           CONFIG: ${{ matrix.path }}
         run: |
           cp resources/\[configs\]/fluffy-configs/config/*.cfg resources/[\configs\]/
           mv resources/\[configs\]/fluffy-configs/server.cfg ./server.cfg
           rm -r resources/\[configs\]/fluffy-configs
+
+      - name: Delete related qb resource 
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
+          script: find fivem_resources/resources -type d -name "${{ matrix.qb }}" -exec rm -rf {} +
 
       - uses: actions/upload-artifact@v2
         with:

@@ -23,12 +23,17 @@ const getReposToDeploy = async () => {
       })
 
     return repos.data.map(repo => ({ 
-      name: repo.full_name,
+      qb: repo.name.replace('fluffy-', 'qb-'),
+      name: repo.name,
       path: `resources/${determineFolder(repo.name)}/${repo.name}`
     }))
   }
 
-  return [{ name: `FluffyTal-es/${reposToDeploy}`, path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}` }]
+  return [{ 
+    qb: reposToDeploy.replace('fluffy-', 'qb-'),
+    name: reposToDeploy, 
+    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}` 
+  }]
 }
 
 (async () => {
