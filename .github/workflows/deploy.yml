@@ -7,12 +7,7 @@ on:
         description: 'Which repository to deploy'
         required: true
         default: 'all' 
-        type: choice
-        options:
-        - all
-        - fluffy-configs
-        - fluffy-dev-tools
-        - fluffy-nonpc
+        type: string
       dev:
         description: 'Deploy to development?'
         required: true
