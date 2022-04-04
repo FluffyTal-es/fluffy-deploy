@@ -66,6 +66,7 @@ jobs:
         run: |
           ls -al 
           ls -al ${CONFIG}
+          ls -al ${CONFIG}/config
           mv ${CONFIG}/config/* resources/[configs]/
           rm -r ${CONFIG}/config
           mv -r ${CONFIG}/server.cfg ./server.cfg
