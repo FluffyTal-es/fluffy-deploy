@@ -19,7 +19,7 @@ jobs:
           avatar_url: "https://cdn.fluffytal.es/servericon.png"
           color: "#00ff72"
           username: "FluffyTales GitBot"
-          message: "Hurray! An updated dropped on the Server! \n Hit the link, find the details! \n ${{ github.event.workflow_run.html_url}}"
+          message: ":Aviso: Hurray! An updated dropped on the Server! :Aviso: \n Hit the link and find the details! \n ${{ github.event.workflow_run.html_url}}"
 
   on-failure:
     runs-on: ubuntu-latest
@@ -33,4 +33,4 @@ jobs:
           avatar_url: "https://cdn.fluffytal.es/servericon.png"
           color: "#ff006a"
           username: "FluffyTales GitBot"
-          message: "Nay Nay Nay! That ship has sunk somewhere in between! \n Hit the link, find the details! \n ${{ github.event.workflow_run.html_url}}"
+          message: ":Alert: Nay Nay Nay! That ship has sunk somewhere in between! :Alert: \n Hit the link and find the details! \n ${{ github.event.workflow_run.html_url}}"
