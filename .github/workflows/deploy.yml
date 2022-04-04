@@ -64,7 +64,7 @@ jobs:
         env: 
           CONFIG: ${{ matrix.path }}
         run: |
-          cp ${CONFIG}/config/* resources/[configs]/
+          cp ${CONFIG}/config/*.cfg resources/[configs]/
           rm -r ${CONFIG}/config
           mv -r ${CONFIG}/server.cfg ./server.cfg
 
