@@ -49,34 +49,19 @@ jobs:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
     
     steps:
-      - name: Clone config Repository
+      - name: Clone resource repository
         uses: actions/checkout@master
         with:
           repository: ${{ matrix.name }}
           token: ${{ secrets.DEPLOY_TOKEN }}
-          path: '.'
-      
-      - name: Move configs to right path
-        if:  ${{ matrix.name == 'FluffyTal-es/fluffy-configs' }}
-        run: |
-          mkdir -p resources/[configs]
-          mv config/* resources/[configs]/
-          rm -r config
-
-      - name: Clone dev-tools Repository
-        if:  ${{ matrix.name == 'FluffyTal-es/fluffy-dev-tools' }}
-        uses: actions/checkout@master
-        with:
-          repository: FluffyTal-es/fluffy-dev-tools
-          token: ${{ secrets.DEPLOY_TOKEN }}
-          path: 'resources/[dev]/fluffy-dev-tools'
+          path:  ${{ matrix.path }}
 
       - uses: actions/upload-artifact@v2
         with:
           name: fluffytales
           path: '.'
 
-  build:
+  push:
     needs: [clone]
     
     runs-on: ubuntu-latest
@@ -86,7 +71,7 @@ jobs:
         with:
           name: fluffytales
 
-      - name: "Deploy configs on server"
+      - name: "Deploy resources to server"
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
