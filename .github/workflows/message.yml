@@ -16,9 +16,10 @@ jobs:
         with:
           webhook_id: ${{ secrets.WEBHOOK_ID }}
           webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          avatar_url: "https://cdn.fluffytal.es/servericon.png"
           color: "#00ff72"
           username: "FluffyTales GitBot"
-          message: "Resources successfully deployed on server!  \n ${{ github.event.workflow_run.html_url}}"
+          message: "Hurray! An updated dropped on the Server! \n Hit the link, find the details! \n ${{ github.event.workflow_run.html_url}}"
 
   on-failure:
     runs-on: ubuntu-latest
@@ -29,6 +30,7 @@ jobs:
         with:
           webhook_id: ${{ secrets.WEBHOOK_ID }}
           webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
+          avatar_url: "https://cdn.fluffytal.es/servericon.png"
           color: "#ff006a"
           username: "FluffyTales GitBot"
-          message: "Resource not deployed on server! \n ${{ github.event.workflow_run.html_url}}"
+          message: "Nay Nay Nay! That ship has sunk somewhere in between! \n Hit the link, find the details! \n ${{ github.event.workflow_run.html_url}}"
