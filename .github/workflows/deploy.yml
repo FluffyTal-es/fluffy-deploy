@@ -55,7 +55,7 @@ jobs:
         run: rm -rf ${{ matrix.path }}/.git
 
       - name: "Move configs to right path"
-        if: ${{ matrix.name }} == 'fluffy-configs'
+        if: matrix.name == 'fluffy-configs'
         env: 
           CONFIG: ${{ matrix.path }}
         run: |
