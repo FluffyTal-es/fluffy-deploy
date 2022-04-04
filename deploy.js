@@ -13,7 +13,7 @@ const determineFolder = (name) => {
 }
 
 const getReposToDeploy = async () => {
-  const reposToDeploy = 'all' //core.getInput('repos')
+  const reposToDeploy = core.getInput('repos')
 
   if (reposToDeploy === 'all') {
     const repos = await octokit.rest.repos
@@ -24,7 +24,7 @@ const getReposToDeploy = async () => {
 
     return repos.data.map(repo => ({ 
       name: repo.full_name,
-      path: `resources/${determineFolder(repo.name)}/`
+      path: `resources/${determineFolder(repo.name)}/${repo.name}`
     }))
   }
 
