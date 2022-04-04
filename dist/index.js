@@ -8348,11 +8348,15 @@ const getReposToDeploy = async () => {
         type: 'private',
       })
 
-    return repos.data.map(repo => ({ 
+    const matrix = repos.data.map(repo => ({ 
       qb: repo.name.replace('fluffy-', 'qb-'),
       name: repo.name,
       path: `resources/${determineFolder(repo.name)}/${repo.name}`
-    })).filter(repo => ['fluffy-deploy', 'fluffy-recipe'].indexOf(repo.name) === -1)
+    })).filter(repo => (['fluffy-deploy', 'fluffy-recipe'].indexOf(repo.name) === -1))
+
+    core.debug(matrix)
+
+    return matrix
   }
 
   return [{ 
