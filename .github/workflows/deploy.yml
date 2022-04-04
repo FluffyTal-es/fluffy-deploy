@@ -62,7 +62,7 @@ jobs:
       - name: "Move configs to right path"
         if: ${{ matrix.name }} == 'FluffyTal-es/fluffy-configs'
         env: 
-          CONFIG: ${{ matrix.name }}
+          CONFIG: ${{ matrix.path }}
         run: |
           mv ${CONFIG}/config/* resources/[configs]/
           rm -r ${CONFIG}/config

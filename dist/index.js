@@ -8346,7 +8346,7 @@ const getReposToDeploy = async () => {
     }))
   }
 
-  return [{ name: `FluffyTal-es/${reposToDeploy}` }]
+  return [{ name: `FluffyTal-es/${reposToDeploy}`, path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}` }]
 }
 
 (async () => {
