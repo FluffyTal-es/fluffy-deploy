@@ -8329,7 +8329,7 @@ const isResourceForSpawn = (name) => {
     'apartments', 
     'spawn', 
     'multicharacter', 
-    'clothing'].indexOf(name.replace('qb-', ''))) {
+    'clothing'].indexOf(name.replace('qb-', '')) !== -1) {
       return true
     }
 
