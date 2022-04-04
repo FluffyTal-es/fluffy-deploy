@@ -100,7 +100,3 @@ jobs:
           chmod 600 ~/.ssh/id_github
           rsync -avzrIO --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
           rm ~/.ssh/id_github
-
-gh repo list "FluffyTal-es" --limit 1000 | while read -r repo _; do
-  $(cd ${repo#"FluffyTal-es/"} && git add . && git commit -m "add auto deploy workflow" && git push && cd ..)
-done
