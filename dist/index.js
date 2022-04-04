@@ -8335,7 +8335,7 @@ const determineFolder = (name) => {
   if (name.indexOf('job') !== -1) return '[jobs]'
   else if (name.indexOf('dev') !== -1) return '[dev]'
   else if (name.indexOf('configs') !== -1) return '[configs]'
-  else if (isResourceForSpawn(name) !== -1) return '[spawn]'
+  else if (isResourceForSpawn(name)) return '[spawn]'
   else return '[fluffy]'
 }
 
