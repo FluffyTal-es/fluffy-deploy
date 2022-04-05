@@ -16,6 +16,10 @@ on:
         options:
         - 'yes'
         - 'no'
+      sha:
+        description: 'Last commit SHA'
+        required: true
+        type: string
 
 jobs:
   prepare:
@@ -80,11 +84,12 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           script: find /opt/fivem_resources/resources -type d -name "${{ matrix.qb }}" -exec rm -rf {} +
       
-      - uses: fluffyTal-es/fluffy-auto-release@latest
+      - uses: FluffyTal-es/fluffy-auto-release@latest
         with:
           repo_token: "${{ secrets.DEPLOY_TOKEN }}"
           automatic_release_tag: "latest"
           repository: ${{ matrix.name }}
+          sha: ${{ github.event.inputs.sha }}
 
       - uses: actions/upload-artifact@v2
         with:
