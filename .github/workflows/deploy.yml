@@ -82,7 +82,7 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
-          script: find /opt/fivem_resources/resources -type d -name "${{ matrix.qb }}" -exec rm -rf {} +
+          script: find /opt/fivem_resources/resources -type d -name "*${{ matrix.qb }}*" -exec rm -rf {} +
       
       - uses: FluffyTal-es/fluffy-auto-release@latest
         if: ${{ github.event.inputs.repo != 'all' }} 

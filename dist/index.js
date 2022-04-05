@@ -8355,7 +8355,7 @@ const getReposToDeploy = async () => {
       })
 
     return repos.data.map(repo => ({ 
-      qb: repo.name.replace('fluffy-', 'qb-'),
+      qb: repo.name.replace('fluffy-', ''),
       name: repo.name,
       path: `resources/${determineFolder(repo.name)}/${repo.name}`
     })).filter(repo => ['fluffy-deploy', 'fluffy-recipe'].indexOf(repo.name) === -1)
