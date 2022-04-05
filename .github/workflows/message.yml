@@ -33,7 +33,7 @@ jobs:
             -o status.zip \
             ${{steps.get-artifact-id.outputs.result}}
           unzip status.zip
-          cat status.json
+          JSON=$(cat ./status.json)
           echo "::set-output name=status::${JSON//'%'/'%25'}"
   on-success:
     needs: [get-status]
