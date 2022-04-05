@@ -40,8 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - run: echo ${{ needs.get-status.outputs.status }}
-      - run: echo ${{ fromJSON(needs.get-status.outputs.status) }}
       - name: "Hurray!"
         uses: appleboy/discord-action@master
         with:
@@ -50,7 +48,7 @@ jobs:
           avatar_url: "https://cdn.fluffytal.es/servericon.png"
           color: "#00ff72"
           username: "FluffyTales GitBot"
-          message: ":+1: Hurray! An updated dropped on the Server!\n\nHit the link and find the details!\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:"
+          message: ":+1: Hurray! An updated for ${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }} dropped on the ${{ ${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server!\n\nHit the link and find the details!\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:"
 
   on-failure:
     needs: [get-status]
@@ -65,4 +63,4 @@ jobs:
           avatar_url: "https://cdn.fluffytal.es/servericon.png"
           color: "#ff006a"
           username: "FluffyTales GitBot"
-          message: ":-1: Nay Nay Nay! That ship has sunk somewhere in between!\n\nHit the link and find the details!\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:"
+          message: ":-1: Nay Nay Nay! That ship has sunk somewhere in between! Failed deploy for for ${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }} on the ${{ ${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server.\n\nHit the link and find the details!\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:"
