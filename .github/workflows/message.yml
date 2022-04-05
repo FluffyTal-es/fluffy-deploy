@@ -58,6 +58,7 @@ jobs:
           message: ":+1: Hurray! An updated dropped on the Server!\n\nHit the link and find the details!\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:"
 
   on-failure:
+    needs: [get-status]
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:

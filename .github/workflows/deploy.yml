@@ -24,6 +24,14 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
     steps:
+    - name: "Prepare message"
+      run: echo {\"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"}  > status.json
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: status
+        path: status.json
+        
     - name: Fetch local action
       uses: actions/checkout@v3
 
@@ -101,11 +109,3 @@ jobs:
           chmod 600 ~/.ssh/id_github
           rsync -avzrIO --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
           rm ~/.ssh/id_github
-
-      - name: "Prepare message"
-        run: echo {\"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"}  > status.json
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: status
-          path: status.json
