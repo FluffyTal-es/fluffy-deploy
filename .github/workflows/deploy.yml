@@ -75,6 +75,13 @@ jobs:
           mv resources/\[configs\]/fluffy-configs/server.cfg ./server.cfg
           rm -r resources/\[configs\]/fluffy-configs
 
+      - name: "Move MLOs to right path"
+        if: matrix.name == 'fluffy-mlos'
+        env: 
+          CONFIG: ${{ matrix.path }}
+        run: |
+          mv resources/\[fluffy\]/fluffy-mlos/ resources/[\fluffy-mlos\]/
+
       - name: Delete related qb resource 
         uses: appleboy/ssh-action@master
         with:
