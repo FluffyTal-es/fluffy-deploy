@@ -7,6 +7,23 @@ on:
     types: 
       - completed
 jobs:
+  get-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v4
+        id: get-artifact-id
+        with:
+          result-encoding: string
+          script: |
+            const result = await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts', {
+              owner: '${{github.repository_owner}}',
+              repo: '${{github.event.repository.name}}',
+              run_id: ${{github.event.workflow_run.id}}
+            })
+            return result.data.artifacts.filter(a => a.name === 'status')[0].id
+      - name: Get workflow status
+        run: |
+          echo "${{steps.get-artifact-id.outputs.result}}"
   on-success:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
