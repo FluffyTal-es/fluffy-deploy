@@ -41,41 +41,39 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: "Hurray!"
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: 'https://discord.com/api/webhooks/${{ secrets.WEBHOOK_ID }}/${{ secrets.WEBHOOK_TOKEN }}'
-          method: 'POST'
-          data: >
-            {
-              "username": "FluffyTales GitBot",
-              "avatar_url": "https://cdn.fluffytal.es/servericon.png",
-              "components": [
-                {
-                  "type": 1,
-                  "components": [
-                    {
-                      "style": 3,
-                      "label": `Check deployment`,
-                      "url": `${{ github.event.workflow_run.html_url}}`,
-                      "disabled": false,
-                      "emoji": {
-                        "id": null,
-                        "name": `👍`
-                      },
-                      "type": 2
-                    }
-                  ]
-                }
-              ],
-              "embeds": [
-                {
-                  "type": "rich",
-                  "title": `:+1: Hurray!`,
-                  "description": `An update for **${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }}** dropped on the **${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server**!\n\nSee you next time! :kissing_heart:`,
-                  "color": 0x00ff72
-                }
-              ]
-            }
+        run: |
+          curl -X POST https://discord.com/api/webhooks/${{ secrets.WEBHOOK_ID }}/${{ secrets.WEBHOOK_TOKEN }} \
+            -H 'Content-Type: application/json' \
+            -d '{ \
+              "username": "FluffyTales GitBot", \
+              "avatar_url": "https://cdn.fluffytal.es/servericon.png", \
+              "components": [ \
+                { \
+                  "type": 1, \
+                  "components": [ \
+                    { \
+                      "style": 3, \
+                      "label": `Check deployment`, \
+                      "url": `${{ github.event.workflow_run.html_url}}`, \
+                      "disabled": false, \
+                      "emoji": { \
+                        "id": null, \
+                        "name": `👍` \
+                      }, \
+                      "type": 2 \
+                    } \
+                  ] \
+                } \
+              ], \
+              "embeds": [ \
+                { \
+                  "type": "rich", \
+                  "title": `:+1: Hurray!`, \
+                  "description": `An update for **${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }}** dropped on the **${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server**!\n\nSee you next time! :kissing_heart:`, \
+                  "color": 0x00ff72 \
+                } \
+              ] \
+            }' \
 
   on-failure:
     needs: [get-status]
