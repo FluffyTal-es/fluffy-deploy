@@ -28,7 +28,7 @@ jobs:
           echo "${{steps.get-artifact-id.outputs.result}}"
           curl -L -H "Authorization: token ${{github.token}}" \
             -H "Accept: application/vnd.github.v3+json" \
-            -O status.zip \
+            -o status.zip \
             ${{steps.get-artifact-id.outputs.result}}
           unzip status.zip
           echo "REPO= $(jq '.repo' status.json)" >> $GITHUB_ENV
