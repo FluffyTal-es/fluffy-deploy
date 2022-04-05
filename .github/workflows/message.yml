@@ -59,6 +59,7 @@ jobs:
               ],
               "username": "FluffyTales GitBot",
               "avatar_url": "https://cdn.fluffytal.es/servericon.png"
+            }'
   
   on-failure:
     needs: [get-status]
