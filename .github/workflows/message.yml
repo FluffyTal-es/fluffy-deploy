@@ -8,6 +8,9 @@ on:
       - completed
 jobs:
   get-status:
+    outputs:
+      repo: ${{ steps.workflow-status.outputs.repo }}
+      live: ${{ steps.workflow-status.outputs.live }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
@@ -23,7 +26,7 @@ jobs:
             })
             return result.data.artifacts.filter(a => a.name === 'status')[0].archive_download_url
       - name: Get workflow status
-        id: get-status
+        id: workflow-status
         run: |
           echo "${{steps.get-artifact-id.outputs.result}}"
           curl -L -H "Authorization: token ${{github.token}}" \
@@ -38,11 +41,12 @@ jobs:
           echo "$REPO"
           echo "$LIVE"
   on-success:
+    needs: [get-status]
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - run: echo ${{ steps.get-status.outputs.repo }}
-      - run: echo ${{ steps.get-status.outputs.live }}
+      - run: echo ${{ needs.get-status.outputs.repo }}
+      - run: echo ${{ needs.get-status.outputs.live }}
       - name: "Hurray!"
         uses: appleboy/discord-action@master
         with:
