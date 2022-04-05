@@ -8336,6 +8336,13 @@ const isResourceForSpawn = (name) => {
   return false
 }
 
+const getPath = (repo) => {
+  if (repo.name !== 'fluffy-mlos')
+    return `resources/${determineFolder(repo.name)}/${repo.name}`
+  
+  return `resources/[fluffy-mlos]`
+}
+
 const determineFolder = (name) => {
   if (name.indexOf('job') !== -1) return '[jobs]'
   else if (name.indexOf('dev') !== -1) return '[dev]'
@@ -8357,7 +8364,7 @@ const getReposToDeploy = async () => {
     return repos.data.map(repo => ({ 
       qb: repo.name.replace('fluffy-', ''),
       name: repo.name,
-      path: `resources/${determineFolder(repo.name)}/${repo.name}`
+      path: getPath(repo)
     })).filter(repo => ['fluffy-deploy', 'fluffy-recipe'].indexOf(repo.name) === -1)
   }
 
