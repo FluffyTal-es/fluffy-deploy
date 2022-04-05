@@ -9,7 +9,7 @@ on:
 jobs:
   get-status:
     outputs:
-      statu: ${{ steps.workflow-status.outputs.status }}
+      status: ${{ steps.workflow-status.outputs.status }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
@@ -34,7 +34,7 @@ jobs:
             ${{steps.get-artifact-id.outputs.result}}
           unzip status.zip
           cat status.json
-          echo "::set-output name=statu::${JSON//'%'/'%25'}"
+          echo "::set-output name=status::${JSON//'%'/'%25'}"
   on-success:
     needs: [get-status]
     runs-on: ubuntu-latest
