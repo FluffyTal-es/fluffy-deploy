@@ -18,7 +18,7 @@ on:
         - 'no'
       sha:
         description: 'Last commit SHA'
-        required: true
+        required: false
         type: string
 
 jobs:
@@ -85,6 +85,7 @@ jobs:
           script: find /opt/fivem_resources/resources -type d -name "${{ matrix.qb }}" -exec rm -rf {} +
       
       - uses: FluffyTal-es/fluffy-auto-release@latest
+        if: ${{ github.event.inputs.repo }} != 'all'
         with:
           repo_token: "${{ secrets.DEPLOY_TOKEN }}"
           automatic_release_tag: "latest"
