@@ -41,14 +41,41 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: "Hurray!"
-        uses: appleboy/discord-action@master
+        uses: fjogeleit/http-request-action@v1
         with:
-          webhook_id: ${{ secrets.WEBHOOK_ID }}
-          webhook_token: ${{ secrets.WEBHOOK_TOKEN }}
-          avatar_url: "https://cdn.fluffytal.es/servericon.png"
-          color: "#00ff72"
-          username: "FluffyTales GitBot"
-          message: ":+1: Hurray! An updated for ${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }} dropped on the ${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server!\n\nHit the link and find the details!\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:"
+          url: 'https://discord.com/api/webhooks/${{ secrets.WEBHOOK_ID }}/${{ secrets.WEBHOOK_TOKEN }}'
+          method: 'POST'
+          data: >
+            {
+              "username": "FluffyTales GitBot",
+              "avatar_url": "https://cdn.fluffytal.es/servericon.png",
+              "components": [
+                {
+                  "type": 1,
+                  "components": [
+                    {
+                      "style": 3,
+                      "label": `Check deployment`,
+                      "url": `${{ github.event.workflow_run.html_url}}`,
+                      "disabled": false,
+                      "emoji": {
+                        "id": null,
+                        "name": `👍`
+                      },
+                      "type": 2
+                    }
+                  ]
+                }
+              ],
+              "embeds": [
+                {
+                  "type": "rich",
+                  "title": `:+1: Hurray!`,
+                  "description": `An update for **${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }}** dropped on the **${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server**!\n\nSee you next time! :kissing_heart:`,
+                  "color": 0x00ff72
+                }
+              ]
+            }
 
   on-failure:
     needs: [get-status]
@@ -63,4 +90,4 @@ jobs:
           avatar_url: "https://cdn.fluffytal.es/servericon.png"
           color: "#ff006a"
           username: "FluffyTales GitBot"
-          message: ":-1: Nay Nay Nay! That ship has sunk somewhere in between! Failed deploy for for ${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }} on the ${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server.\n\nHit the link and find the details!\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:"
+          message: ":-1: Nay Nay Nay! That ship has sunk somewhere in between! Failed deploy for ${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }} on the ${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server.\n\nHit the link and find the details!\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:"
