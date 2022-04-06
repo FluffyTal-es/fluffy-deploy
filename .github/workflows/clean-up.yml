@@ -8,7 +8,6 @@ jobs:
   delete-artifacts:
     runs-on: ubuntu-latest
     steps:
-      - uses: kolpav/purge-artifacts-action@v1
+      - uses: c-hive/gha-remove-artifacts@v1
         with:
-          token: ${{ secrets.DEPLOY_TOKEN }}
-          expire-in: 0days # Set this to 0 to delete all artifacts
+          age: 10 minutes # Set this to 0 to delete all artifacts
