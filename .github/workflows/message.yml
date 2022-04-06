@@ -3,7 +3,7 @@ name: "send discord message"
 on:
   workflow_run:
     workflows:
-      - deploy
+      - deploy to server
     types: 
       - completed
 jobs:
