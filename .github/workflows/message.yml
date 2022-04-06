@@ -1,4 +1,4 @@
-name: "discord"
+name: "send discord message"
 
 on:
   workflow_run:
