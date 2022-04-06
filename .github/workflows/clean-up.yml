@@ -1,4 +1,4 @@
-name: 'nightly artifacts cleanup'
+name: 'artifacts cleanup'
 on:
   workflow_dispatch:
   schedule:
@@ -10,5 +10,5 @@ jobs:
     steps:
       - uses: kolpav/purge-artifacts-action@v1
         with:
-          token: ${{ DEPLOY_TOKEN }}
+          token: ${{ secrets.DEPLOY_TOKEN }}
           expire-in: 0 # Set this to 0 to delete all artifacts
