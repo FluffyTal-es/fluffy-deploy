@@ -136,4 +136,5 @@ jobs:
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
           rsync -avzrIO --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
+          chown -R github:fivem /opt/fivem_resources
           rm ~/.ssh/id_github
