@@ -36,7 +36,7 @@ jobs:
     - name: "Prepare message"
       run: |
         declare -A autor=( [devs]=959103824495280139 [Zimpi]=120607493528354818 [Salzgardist]=212296010146250753 [SanjaDevUE]=468190459282456576 [beatlex]=233226704724688897 [dominicrico]=396744310768271381 )
-        echo {\"actor\":"${autor[${{github.event.inputs.actor}}]}", \"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"}  > status.json
+        echo {\"actor\":\""${autor[${{github.event.inputs.actor}}]}"\", \"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"}  > status.json
 
     - uses: actions/upload-artifact@v2
       with:
@@ -141,8 +141,9 @@ jobs:
           chmod 600 ~/.ssh/id_github
           rsync -avzrIO --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
           rm ~/.ssh/id_github
-          
+
       - name: "Clean up"
+        if: always()
         uses: geekyeggo/delete-artifact@v1
         with:
           name: fluffytales
