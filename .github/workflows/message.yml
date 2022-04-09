@@ -33,6 +33,7 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -o status.json \
             ${{steps.get-artifact-id.outputs.result}}
+          cat ./status.json
           JSON=$(cat ./status.json)
           echo "::set-output name=status::${JSON//'%'/'%25'}"
   on-success:
