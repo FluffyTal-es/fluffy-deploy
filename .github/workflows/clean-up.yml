@@ -3,6 +3,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 4 * * *' # every night at 1 am UTC
+  workflow_run:
+    workflows:
+      - send discord message
+    types: 
+      - completed
 
 jobs:
   delete-artifacts:
