@@ -31,8 +31,9 @@ jobs:
           echo "${{steps.get-artifact-id.outputs.result}}"
           curl -L -H "Authorization: token ${{github.token}}" \
             -H "Accept: application/vnd.github.v3+json" \
-            -o status.json \
+            -o status.zip \
             ${{steps.get-artifact-id.outputs.result}}
+          unzip ./status.zip
           cat ./status.json
           JSON=$(cat ./status.json)
           echo "::set-output name=status::${JSON//'%'/'%25'}"
