@@ -24,15 +24,15 @@ jobs:
               run_id: ${{github.event.workflow_run.id}}
             })
             return result.data.artifacts.filter(a => a.name === 'status')[0].archive_download_url
+
       - name: Get workflow status
         id: workflow-status
         run: |
           echo "${{steps.get-artifact-id.outputs.result}}"
           curl -L -H "Authorization: token ${{github.token}}" \
             -H "Accept: application/vnd.github.v3+json" \
-            -o status.zip \
+            -o status.json \
             ${{steps.get-artifact-id.outputs.result}}
-          unzip status.zip
           JSON=$(cat ./status.json)
           echo "::set-output name=status::${JSON//'%'/'%25'}"
   on-success:
