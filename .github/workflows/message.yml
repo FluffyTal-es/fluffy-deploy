@@ -42,7 +42,6 @@ jobs:
     steps:
       - name: "Hurray!"
         run: |
-          declare -A autor=( ["devs"]="959103824495280139" ["Zimpi"]="120607493528354818" ["Salzgardist"]="212296010146250753" ["SanjaDevUE"]="468190459282456576" ["beatlex"]="233226704724688897" ["dominicrico"]="396744310768271381" )
           curl -X POST https://discord.com/api/webhooks/${{ secrets.WEBHOOK_ID }}/${{ secrets.WEBHOOK_TOKEN }} \
             -H 'Content-Type: application/json' \
             -d '{
@@ -50,7 +49,7 @@ jobs:
               "embeds": [
                 {
                   "title": ":+1: Hurray!",
-                  "description": "An update for **${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }}** by <@${autor["${{fromJSON(needs.get-status.outputs.status).actor}}"]}> dropped on the **${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server**!\n\n:package:  [${{ fromJSON(needs.get-status.outputs.status).repo }}](https://github.com/FluffyTal-es/${{ fromJSON(needs.get-status.outputs.status).repo != 'all' && fromJSON(needs.get-status.outputs.status).repo || '' }})\n\n:roll_of_paper: [Changelog](https://github.com/FluffyTal-es/${{ fromJSON(needs.get-status.outputs.status).repo != 'all' && fromJSON(needs.get-status.outputs.status).repo || '' }}/releases)\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:",
+                  "description": "An update for **${{ fromJSON(needs.get-status.outputs.status).repo == 'all' && 'all Resources' ||  fromJSON(needs.get-status.outputs.status).repo }}** by <@$${{fromJSON(needs.get-status.outputs.status).actor}}> dropped on the **${{ fromJSON(needs.get-status.outputs.status).live == 'yes' && 'Live' || 'Dev' }} Server**!\n\n:package:  [${{ fromJSON(needs.get-status.outputs.status).repo }}](https://github.com/FluffyTal-es/${{ fromJSON(needs.get-status.outputs.status).repo != 'all' && fromJSON(needs.get-status.outputs.status).repo || '' }})\n\n:roll_of_paper: [Changelog](https://github.com/FluffyTal-es/${{ fromJSON(needs.get-status.outputs.status).repo != 'all' && fromJSON(needs.get-status.outputs.status).repo || '' }}/releases)\n\n:link: ${{ github.event.workflow_run.html_url}}\n\nSee you next time! :kissing_heart:",
                   "color": 65402,
                   "footer": {
                     "text": "Deployed"

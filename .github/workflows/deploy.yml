@@ -34,7 +34,9 @@ jobs:
 
     steps:
     - name: "Prepare message"
-      run: echo {\"actor\":\"${{github.event.inputs.actor}}\", \"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"}  > status.json
+      run: |
+        declare -A autor=( [devs]=959103824495280139 [Zimpi]=120607493528354818 [Salzgardist]=212296010146250753 [SanjaDevUE]=468190459282456576 [beatlex]=233226704724688897 [dominicrico]=396744310768271381 )
+        echo {\"actor\":"${autor[${{github.event.inputs.actor}}]}, \"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"}  > status.json
 
     - uses: actions/upload-artifact@v2
       with:
