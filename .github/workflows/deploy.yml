@@ -20,6 +20,11 @@ on:
         description: 'Last commit SHA'
         required: false
         type: string
+      actor:
+        description: 'Who changed it?'
+        default: 'devs' 
+        required: false
+        type: string
 
 jobs:
   prepare:
@@ -29,7 +34,7 @@ jobs:
 
     steps:
     - name: "Prepare message"
-      run: echo {\"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"}  > status.json
+      run: echo {\"actor\":\"${{github.event.inputs.actor}}\", \"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"}  > status.json
 
     - uses: actions/upload-artifact@v2
       with:
@@ -45,9 +50,6 @@ jobs:
       with:
         token: ${{ secrets.DEPLOY_TOKEN }}
         repos: ${{ github.event.inputs.repo }}
-
-    - name: debug
-      run: echo ${{ steps.set-matrix.outputs.matrix }}
 
   clone:
     needs: [prepare]
@@ -98,7 +100,7 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
-          script: find /opt/fivem_resources/resources -maxdepth 3 -type d -name "${{ matrix.qb }}*" | grep -v 'fluffy' | xargs rm -rf
+          script: find /opt/fivem_resources/resources -maxdepth 2 -type d -name "${{ matrix.qb }}*" | grep -v 'fluffy' | xargs rm -rf
       
       - uses: FluffyTal-es/fluffy-auto-release@latest
         if: ${{ github.event.inputs.repo != 'all' }} 
