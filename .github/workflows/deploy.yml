@@ -83,15 +83,15 @@ jobs:
           CONFIG: ${{ matrix.path }}
         run: |
           mkdir -p resources/[\fluffy-mlos\]/
-          mv resources/\[fluffy\]/fluffy-mlos/ resources/[\fluffy-mlos\]/
+          mv resources/\[fluffy\]/fluffy-mlos/* resources/[\fluffy-mlos\]/
 
-      - name: "Move MLOs to right path"
+      - name: "Move Peds to right path"
         if: matrix.name == 'fluffy-peds'
         env: 
           CONFIG: ${{ matrix.path }}
         run: |
           mkdir -p resources/[\fluffy-pets\]/
-          mv resources/\[fluffy\]/fluffy-peds/ resources/[\fluffy-peds\]/
+          mv resources/\[fluffy\]/fluffy-peds/* resources/[\fluffy-peds\]/
 
       - name: Delete related qb resource 
         uses: appleboy/ssh-action@master
