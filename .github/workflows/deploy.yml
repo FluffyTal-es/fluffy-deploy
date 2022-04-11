@@ -94,7 +94,7 @@ jobs:
         env: 
           CONFIG: ${{ matrix.path }}
         run: |
-          mkdir -p resources/[\fluffy-pets\]/
+          mkdir -p resources/[\fluffy-peds\]/
           mv resources/\[fluffy\]/fluffy-peds/* resources/[\fluffy-peds\]/
 
       - name: Delete related qb resource 
