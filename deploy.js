@@ -33,7 +33,7 @@ const getReposToDeploy = async () => {
   if (reposToDeploy === 'all') {
     const repos = await octokit.rest.repos
       .listForOrg({
-        org: 'fluffytal-es',
+        org: 'FluffyTal-es',
         type: 'private',
       })
 
@@ -43,6 +43,12 @@ const getReposToDeploy = async () => {
       path: `resources/${determineFolder(repo.name)}/${repo.name}`
     })).filter(repo => ['fluffy-deploy', 'fluffy-recipe', 'fluffy-auto-release'].indexOf(repo.name) === -1)
   }
+
+  core.debug({ 
+    qb: reposToDeploy.replace('fluffy-', 'qb-'),
+    name: reposToDeploy, 
+    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}` 
+  })
 
   return [{ 
     qb: reposToDeploy.replace('fluffy-', 'qb-'),

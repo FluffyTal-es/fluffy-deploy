@@ -67,8 +67,10 @@ jobs:
           token: ${{ secrets.DEPLOY_TOKEN }}
           path:  ${{ matrix.path }}
       
-      - name: Remove .git folder
-        run: rm -rf ${{ matrix.path }}/.git
+      - name: Remove git folders
+        run: | 
+          rm -rf ${{ matrix.path }}/.git
+          rm -rf ${{ matrix.path }}/.github
 
       - name: "Move configs to right path"
         if: matrix.name == 'fluffy-configs'

@@ -8341,6 +8341,7 @@ const determineFolder = (name) => {
   else if (name.indexOf('dev') !== -1) return '[dev]'
   else if (name.indexOf('configs') !== -1) return '[configs]'
   else if (isResourceForSpawn(name)) return '[spawn]'
+  else if (name == 'saltychat') return '[standalone]'
   else return '[fluffy]'
 }
 
@@ -8350,7 +8351,7 @@ const getReposToDeploy = async () => {
   if (reposToDeploy === 'all') {
     const repos = await octokit.rest.repos
       .listForOrg({
-        org: 'fluffytal-es',
+        org: 'FluffyTal-es',
         type: 'private',
       })
 
@@ -8360,6 +8361,12 @@ const getReposToDeploy = async () => {
       path: `resources/${determineFolder(repo.name)}/${repo.name}`
     })).filter(repo => ['fluffy-deploy', 'fluffy-recipe', 'fluffy-auto-release'].indexOf(repo.name) === -1)
   }
+
+  core.debug({ 
+    qb: reposToDeploy.replace('fluffy-', 'qb-'),
+    name: reposToDeploy, 
+    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}` 
+  })
 
   return [{ 
     qb: reposToDeploy.replace('fluffy-', 'qb-'),
