@@ -97,6 +97,14 @@ jobs:
           mkdir -p resources/[\fluffy-peds\]/
           mv resources/\[fluffy\]/fluffy-peds/* resources/[\fluffy-peds\]/
 
+      - name: "Move Cars to right path"
+        if: matrix.name == 'fluffy-moddedcars'
+        env: 
+          CONFIG: ${{ matrix.path }}
+        run: |
+          mkdir -p resources/[\fluffy-moddedcars\]/
+          mv resources/\[fluffy\]/fluffy-moddedcars/* resources/[\fluffy-moddedcars\]/
+
       - name: Delete related qb resource 
         uses: appleboy/ssh-action@master
         with:
