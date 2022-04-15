@@ -35,6 +35,7 @@ const getReposToDeploy = async () => {
       .listForOrg({
         org: 'FluffyTal-es',
         type: 'private',
+        per_page: 1000
       })
 
     return repos.data.map(repo => ({ 
@@ -60,6 +61,7 @@ const getReposToDeploy = async () => {
 (async () => {
   try {
     const r = await getReposToDeploy()
+    core.debug(r)
     return core.setOutput('matrix', { include: r })
   } catch (error) {
     core.setFailed(error.message)
