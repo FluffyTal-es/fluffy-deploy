@@ -60,12 +60,23 @@ jobs:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
     
     steps:
-      - name: Clone resource repository
+      - name: Clone resource repository from develop branch
         uses: actions/checkout@master
+        if: ${{ github.event.inputs.live != 'yes' }}
         with:
           repository: FluffyTal-es/${{ matrix.name }}
           token: ${{ secrets.DEPLOY_TOKEN }}
           path:  ${{ matrix.path }}
+          ref: 'develop'
+
+      - name: Clone resource repository from develop branch
+        uses: actions/checkout@master
+        if: ${{ github.event.inputs.live == 'yes' }}
+        with:
+          repository: FluffyTal-es/${{ matrix.name }}
+          token: ${{ secrets.DEPLOY_TOKEN }}
+          path:  ${{ matrix.path }}
+          ref: 'main'
       
       - name: Remove git folders
         run: | 
