@@ -69,7 +69,7 @@ jobs:
           path:  ${{ matrix.path }}
           ref: 'develop'
 
-      - name: Clone resource repository from develop branch
+      - name: Clone resource repository from main branch
         uses: actions/checkout@master
         if: ${{ github.event.inputs.live == 'yes' }}
         with:
