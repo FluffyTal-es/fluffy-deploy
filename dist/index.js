@@ -8319,8 +8319,6 @@ var __webpack_exports__ = {};
 const { Octokit } = __nccwpck_require__(2543)
 const core = __nccwpck_require__(260)
 
-core.debug(core.getInput('token'))
-
 const octokit = new Octokit({
   auth: core.getInput('token')
 })

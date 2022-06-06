@@ -1,8 +1,6 @@
 const { Octokit } = require('@octokit/rest')
 const core = require('@actions/core')
 
-core.debug(core.getInput('token'))
-
 const octokit = new Octokit({
   auth: core.getInput('token')
 })
