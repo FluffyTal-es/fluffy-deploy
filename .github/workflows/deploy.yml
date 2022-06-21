@@ -176,6 +176,8 @@ jobs:
         run: |
           mkdir ~/.ssh
           echo "$remote_key" > ~/.ssh/id_github
+          echo ${localdir}
+          echo pwd
           chmod 600 ~/.ssh/id_github
           rsync -avzrIO --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
           rm ~/.ssh/id_github
