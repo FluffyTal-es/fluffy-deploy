@@ -91,6 +91,7 @@ jobs:
           cp resources/\[configs\]/fluffy-configs/config/*.cfg resources/[\configs\]/
           mv resources/\[configs\]/fluffy-configs/server.cfg ./server.cfg
           rm -r resources/\[configs\]/fluffy-configs
+          export REMOTE_PATH=resources/[\configs\]/
 
       - name: "Move MLOs to right path"
         if: matrix.name == 'fluffy-mlos'
@@ -99,6 +100,7 @@ jobs:
         run: |
           mkdir -p resources/[\fluffy-mlos\]/
           mv resources/\[fluffy\]/fluffy-mlos/* resources/[\fluffy-mlos\]/
+          export REMOTE_PATH=resources/[\fluffy-mlos\]/
 
       - name: "Move Peds to right path"
         if: matrix.name == 'fluffy-peds'
@@ -107,6 +109,7 @@ jobs:
         run: |
           mkdir -p resources/[\fluffy-peds\]/
           mv resources/\[fluffy\]/fluffy-peds/* resources/[\fluffy-peds\]/
+          export REMOTE_PATH=resources/[\fluffy-peds\]/
 
       - name: "Move Cars to right path"
         if: matrix.name == 'fluffy-moddedcars'
@@ -115,6 +118,7 @@ jobs:
         run: |
           mkdir -p resources/[\fluffy-moddedcars\]/
           mv resources/\[fluffy\]/fluffy-moddedcars/* resources/[\fluffy-moddedcars\]/
+          export REMOTE_PATH=resources/[\fluffy-moddedcars\]/
 
       - name: Delete related qb resource 
         uses: appleboy/ssh-action@master
@@ -139,9 +143,10 @@ jobs:
           path: '.'
 
   push:
-    needs: [clone]
-    
+    needs: [prepare, clone]
     runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
 
     steps:
       - uses: actions/download-artifact@v2
@@ -176,7 +181,7 @@ jobs:
         run: |
           mkdir ~/.ssh
           echo "$remote_key" > ~/.ssh/id_github
-          echo ${local_dir}
+          echo ${{ matrix.path }}
           echo $(ls -al)
           chmod 600 ~/.ssh/id_github
           rsync -avzrIO --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
