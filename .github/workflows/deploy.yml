@@ -181,10 +181,8 @@ jobs:
         run: |
           mkdir ~/.ssh
           echo "$remote_key" > ~/.ssh/id_github
-          echo ${{ matrix.path }}
-          echo $(ls -al)
           chmod 600 ~/.ssh/id_github
-          rsync -avzrIO --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${local_dir} ${remote_user}@${remote_host}:${remote_dir}
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${{ matrix.path }} ${remote_user}@${remote_host}:${{ matrix.path }}
           rm ~/.ssh/id_github
 
       - name: "Clean up"
