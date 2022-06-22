@@ -54,7 +54,7 @@ const getReposToDeploy = async () => {
   return [{ 
     qb: reposToDeploy.replace('fluffy-', 'qb-'),
     name: reposToDeploy, 
-    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}` 
+    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}`
   }]
 }
 
