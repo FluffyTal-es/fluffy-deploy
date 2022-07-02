@@ -85,7 +85,7 @@ jobs:
         run: | 
           rm -rf ${{ matrix.path }}/.git
           rm -rf ${{ matrix.path }}/.github
-          env.REMOTE_PATH=false
+          echo "REMOTE_PATH=false" >> $GITHUB_ENV
 
       - name: "Move configs to right path"
         if: matrix.name == 'fluffy-configs'
@@ -95,7 +95,7 @@ jobs:
           cp resources/\[configs\]/fluffy-configs/config/*.cfg resources/[\configs\]/
           mv resources/\[configs\]/fluffy-configs/server.cfg ./server.cfg
           rm -r resources/\[configs\]/fluffy-configs
-          env.REMOTE_PATH=resources/[\configs\]/
+          echo "REMOTE_PATH=resources/[\configs\]/" >> $GITHUB_ENV
 
       - name: "Move MLOs to right path"
         if: matrix.name == 'fluffy-mlos'
@@ -104,7 +104,7 @@ jobs:
         run: |
           mkdir -p resources/[\fluffy-mlos\]/
           mv resources/\[fluffy\]/fluffy-mlos/* resources/[\fluffy-mlos\]/
-          env.REMOTE_PATH=resources/[\fluffy-mlos\]/
+          echo "REMOTE_PATH=resources/[\fluffy-mlos\]/" >> $GITHUB_ENV
 
       - name: "Move Peds to right path"
         if: matrix.name == 'fluffy-peds'
@@ -113,7 +113,7 @@ jobs:
         run: |
           mkdir -p resources/[\fluffy-peds\]/
           mv resources/\[fluffy\]/fluffy-peds/* resources/[\fluffy-peds\]/
-          env.REMOTE_PATH=resources/[\fluffy-peds\]/
+          echo "REMOTE_PATH=resources/[\fluffy-peds\]/" >> $GITHUB_ENV
 
       - name: "Move Cars to right path"
         if: matrix.name == 'fluffy-moddedcars'
@@ -122,7 +122,7 @@ jobs:
         run: |
           mkdir -p resources/[\fluffy-moddedcars\]/
           mv resources/\[fluffy\]/fluffy-moddedcars/* resources/[\fluffy-moddedcars\]/
-          env.REMOTE_PATH=resources/[\fluffy-moddedcars\]/
+          echo "REMOTE_PATH=resources/[\fluffy-moddedcars\]/" >> $GITHUB_ENV
 
       - name: Delete related qb resource 
         uses: appleboy/ssh-action@master
