@@ -157,7 +157,7 @@ jobs:
           name: fluffytales
 
       - name: "Deploy resources to live server"
-        if: ${{ github.event.inputs.live == 'yes' }} && env.REMOTE_PATH != 'false'
+        if: ${{ github.event.inputs.live == 'yes' }} && $REMOTE_PATH != 'false'
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
@@ -170,11 +170,11 @@ jobs:
           echo $( dirname ${{ matrix.path }} )
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
-          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${{ matrix.path }} ${remote_user}@${remote_host}:${remote_dir}/${ env.REMOTE_PATH }
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${{ matrix.path }} ${remote_user}@${remote_host}:${remote_dir}/$REMOTE_PATH
           rm ~/.ssh/id_github
 
       - name: "Deploy resources to development server"
-        if: ${{ github.event.inputs.live != 'yes' }} && env.REMOTE_PATH != 'false'
+        if: ${{ github.event.inputs.live != 'yes' }} && $REMOTE_PATH != 'false'
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
@@ -186,11 +186,11 @@ jobs:
           mkdir ~/.ssh
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
-          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${{ matrix.path }} ${remote_user}@${remote_host}:${remote_dir}/${ env.REMOTE_PATH }
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${{ matrix.path }} ${remote_user}@${remote_host}:${remote_dir}/$REMOTE_PATH
           rm ~/.ssh/id_github
       
       - name: "Deploy resources to live server"
-        if: ${{ github.event.inputs.live == 'yes' }} && env.REMOTE_PATH == 'false'
+        if: ${{ github.event.inputs.live == 'yes' }} && $REMOTE_PATH == 'false'
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
@@ -207,7 +207,7 @@ jobs:
           rm ~/.ssh/id_github
 
       - name: "Deploy resources to development server"
-        if: ${{ github.event.inputs.live != 'yes' }}  && env.REMOTE_PATH == 'false'
+        if: ${{ github.event.inputs.live != 'yes' }}  && $REMOTE_PATH == 'false'
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
