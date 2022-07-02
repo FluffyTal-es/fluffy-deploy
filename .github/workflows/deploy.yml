@@ -157,7 +157,7 @@ jobs:
           name: fluffytales
 
       - name: "Deploy resources to live server"
-        if: ${{ github.event.inputs.live == 'yes' && env.REMOTE_PATH != 'false' }}
+        if: ${{ github.event.inputs.live == 'yes' }} && env.REMOTE_PATH != 'false'
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
@@ -174,7 +174,7 @@ jobs:
           rm ~/.ssh/id_github
 
       - name: "Deploy resources to development server"
-        if: ${{ github.event.inputs.live != 'yes' && env.REMOTE_PATH != 'false' }}
+        if: ${{ github.event.inputs.live != 'yes' }} && env.REMOTE_PATH != 'false'
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
@@ -190,7 +190,7 @@ jobs:
           rm ~/.ssh/id_github
       
       - name: "Deploy resources to live server"
-        if: ${{ github.event.inputs.live == 'yes' && env.REMOTE_PATH == 'false' }}
+        if: ${{ github.event.inputs.live == 'yes' }} && env.REMOTE_PATH == 'false'
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
@@ -207,7 +207,7 @@ jobs:
           rm ~/.ssh/id_github
 
       - name: "Deploy resources to development server"
-        if: ${{ github.event.inputs.live != 'yes' && env.REMOTE_PATH == 'false' }}
+        if: ${{ github.event.inputs.live != 'yes' }}  && env.REMOTE_PATH == 'false'
         env:
           remote_host: ${{ secrets.DEPLOY_HOST }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
