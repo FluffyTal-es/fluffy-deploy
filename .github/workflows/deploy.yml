@@ -164,6 +164,7 @@ jobs:
           remote_dir: "/opt/fivem_resources"
         run: |
           mkdir ~/.ssh
+          echo $( dirname ${{ matrix.path }} )
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
           rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" ${{ matrix.path }} ${remote_user}@${remote_host}:${remote_dir}/$( dirname ${{ matrix.path }} )
