@@ -170,7 +170,7 @@ jobs:
           echo $( dirname ${{ matrix.path }} )
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
-          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" $REMOTE_PATH ${remote_user}@${remote_host}:${remote_dir}/$REMOTE_PATH
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" $( dirname ${{ matrix.path }} ) ${remote_user}@${remote_host}:${remote_dir}/$( dirname ${{ matrix.path }} )
           rm ~/.ssh/id_github
 
       - name: "Deploy resources to development server"
@@ -186,7 +186,7 @@ jobs:
           mkdir ~/.ssh
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
-          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" $REMOTE_PATH ${remote_user}@${remote_host}:${remote_dir}/$REMOTE_PATH
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" $( dirname ${{ matrix.path }} ) ${remote_user}@${remote_host}:${remote_dir}/$( dirname ${{ matrix.path }} )
           rm ~/.ssh/id_github
       
       - name: "Deploy resources to live server"
