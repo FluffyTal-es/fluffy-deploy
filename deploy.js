@@ -27,6 +27,18 @@ const determineFolder = (name) => {
   else return '[fluffy]'
 }
 
+const getRemoteDestinationFolder = (name) => {
+  if (name.indexOf('job') !== -1) return `[jobs]/${name}`
+  else if (name.indexOf('dev') !== -1) return `[dev]/${name}`
+  else if (name.indexOf('configs') !== -1) return '[configs]'
+  else if (isResourceForSpawn(name)) return `[spawn]/${name}`
+  else if (name == 'saltychat') return  `[standalone]/${name}`
+  else if (name.indexOf('fluffy-mlos') !== -1) return '[fluffy-mlos]'
+  else if (name.indexOf('fluffy-peds') !== -1) return '[fluffy-peds]'
+  else if (name.indexOf('fluffy-moddedcars') !== -1) return '[fluffy-moddedcars]'
+  else return `[fluffy]/${name}`
+}
+
 const getReposToDeploy = async () => {
   const reposToDeploy = core.getInput('repos')
 
@@ -41,20 +53,23 @@ const getReposToDeploy = async () => {
     return repos.data.map(repo => ({ 
       qb: repo.name.replace('fluffy-', ''),
       name: repo.name,
-      path: `resources/${determineFolder(repo.name)}/${repo.name}`
+      path: `resources/${determineFolder(repo.name)}/${repo.name}`,
+      remotePath: `resources/${getRemoteDestinationFolder(repo.name)}`
     })).filter(repo => ['fluffy-deploy', 'fluffy-recipe', 'fluffy-auto-release'].indexOf(repo.name) === -1)
   }
 
   core.debug({ 
     qb: reposToDeploy.replace('fluffy-', 'qb-'),
     name: reposToDeploy, 
-    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}` 
+    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}`,
+    remotePath: `resources/${getRemoteDestinationFolder(reposToDeploy)}`
   })
 
   return [{ 
     qb: reposToDeploy.replace('fluffy-', 'qb-'),
     name: reposToDeploy, 
-    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}`
+    path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}`,
+    remotePath: `resources/${getRemoteDestinationFolder(reposToDeploy)}`
   }]
 }
 
