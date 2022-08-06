@@ -7,13 +7,13 @@ const octokit = new Octokit({
 
 const isResourceForSpawn = (name) => {
   if ([
-    'houses', 
-    'apartments', 
-    'spawn', 
-    'multicharacter', 
+    'houses',
+    'apartments',
+    'spawn',
+    'multicharacter',
     'clothing'].indexOf(name.replace('fluffy-', '')) !== -1) {
-      return true
-    }
+    return true
+  }
 
   return false
 }
@@ -32,10 +32,13 @@ const getRemoteDestinationFolder = (name) => {
   else if (name.indexOf('dev') !== -1) return `[dev]/${name}`
   else if (name.indexOf('configs') !== -1) return '[configs]'
   else if (isResourceForSpawn(name)) return `[spawn]/${name}`
-  else if (name == 'saltychat') return  `[standalone]/${name}`
+  else if (name == 'saltychat') return `[standalone]/${name}`
   else if (name.indexOf('fluffy-mlos') !== -1) return '[fluffy-mlos]'
   else if (name.indexOf('fluffy-peds') !== -1) return '[fluffy-peds]'
   else if (name.indexOf('fluffy-moddedcars') !== -1) return '[fluffy-moddedcars]'
+  else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
+  else if (name == 'fluffy-casino') return `[fluffy]/[fluffy-casino]`
+
   else return `[fluffy]/${name}`
 }
 
@@ -50,7 +53,7 @@ const getReposToDeploy = async () => {
         per_page: 1000
       })
 
-    return repos.data.map(repo => ({ 
+    return repos.data.map(repo => ({
       qb: repo.name.replace('fluffy-', ''),
       name: repo.name,
       path: `resources/${determineFolder(repo.name)}/${repo.name}`,
@@ -58,16 +61,16 @@ const getReposToDeploy = async () => {
     })).filter(repo => ['fluffy-deploy', 'fluffy-recipe', 'fluffy-auto-release'].indexOf(repo.name) === -1)
   }
 
-  core.debug({ 
+  core.debug({
     qb: reposToDeploy.replace('fluffy-', 'qb-'),
-    name: reposToDeploy, 
+    name: reposToDeploy,
     path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}`,
     remotePath: `resources/${getRemoteDestinationFolder(reposToDeploy)}`
   })
 
-  return [{ 
+  return [{
     qb: reposToDeploy.replace('fluffy-', 'qb-'),
-    name: reposToDeploy, 
+    name: reposToDeploy,
     path: `resources/${determineFolder(reposToDeploy)}/${reposToDeploy}`,
     remotePath: `resources/${getRemoteDestinationFolder(reposToDeploy)}`
   }]
