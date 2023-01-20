@@ -36,6 +36,7 @@ const getRemoteDestinationFolder = (name) => {
   else if (name.indexOf('fluffy-mlos') !== -1) return '[fluffy-mlos]'
   else if (name.indexOf('fluffy-peds') !== -1) return '[fluffy-peds]'
   else if (name.indexOf('fluffy-moddedcars') !== -1) return '[fluffy-moddedcars]'
+  else if (name.indexOf('fluffy-car-event') !== -1) return '[fluffy-moddedcars]/[fluffy-car-event]'
   else if (name == 'fluffy-car-import-am') return '[fluffy]/[fluffy-car-import-am]'
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
   else if (name == 'fluffy-casino') return `[fluffy]/[fluffy-casino]`
