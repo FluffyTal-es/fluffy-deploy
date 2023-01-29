@@ -39,7 +39,6 @@ const getRemoteDestinationFolder = (name) => {
   else if (name == 'fluffy-car-addons')  return '[fluffy]/[fluffy-car-addons]'
   else if (name == 'fluffy-car-mdfd')  return '[fluffy]/[fluffy-car-mdfd]'
   else if (name == 'fluffy-car-pdsd')  return '[fluffy]/[fluffy-car-pdsd]'
-  else if (name == 'fluffy-car-event')  return '[fluffy]/[fluffy-car-event]'
   else if (name == 'fluffy-car-import-am') return '[fluffy]/[fluffy-car-import-am]'
   else if (name == 'fluffy-car-import-nz') return '[fluffy]/[fluffy-car-import-nz]'
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
