@@ -35,14 +35,17 @@ const getRemoteDestinationFolder = (name) => {
   else if (name.indexOf('configs') !== -1) return '[configs]'
   else if (isResourceForSpawn(name)) return `[spawn]/${name}`
   else if (name == 'saltychat') return `[standalone]/${name}`
-  else if (name.indexOf('fluffy-mlos') !== -1) return '[fluffy-mlos]'
+  else if (name == 'fluffy-mlos') return '[fluffy-mlos]/[fluffy-mlos]'
+  else if (name == 'fluffy-mlos-frak') return '[fluffy-mlos]/[fluffy-mlos-frak]'
+  else if (name == 'fluffy-mlos-mapping') return '[fluffy-mlos]/[fluffy-mlos-mapping]'
+  else if (name == 'fluffy-mlos-gabz') return '[fluffy-mlos]/[fluffy-mlos-gabz]'
   else if (name.indexOf('fluffy-peds') !== -1) return '[fluffy-peds]'
   else if (name == 'fluffy-addonkleidung') return `[fluffy-addonkleidung]`
   else if (name.indexOf('fluffy-moddedcars') !== -1) return '[fluffy-moddedcars]'
-  else if (name == 'fluffy-car-addons')  return '[fluffy-moddedcars]/[fluffy-car-addons]'
+  else if (name == 'fluffy-car-addons') return '[fluffy-moddedcars]/[fluffy-car-addons]'
   else if (name == 'fluffy-car-mdfd') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-car-event') return `[fluffy-moddedcars]/${name}`
-  else if (name == 'fluffy-car-pdsd')  return `[fluffy-moddedcars]/${name}`
+  else if (name == 'fluffy-car-pdsd') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-car-import-am') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-car-import-nz') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-motorcycles') return `[fluffy-moddedcars]/${name}`
