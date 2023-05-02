@@ -11,6 +11,8 @@ const isResourceForSpawn = (name) => {
     'apartments',
     'spawn',
     'multicharacter',
+    'illenium-appearance',
+    'ox_lib',
     'clothing'].indexOf(name.replace('fluffy-', '')) !== -1) {
     return true
   }
