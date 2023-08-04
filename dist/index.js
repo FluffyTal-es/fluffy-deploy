@@ -8329,8 +8329,6 @@ const isResourceForSpawn = (name) => {
     'apartments',
     'spawn',
     'multicharacter',
-    'illenium-appearance',
-    'ox_lib',
     'clothing'].indexOf(name.replace('fluffy-', '')) !== -1) {
     return true
   }
@@ -8368,6 +8366,8 @@ const getRemoteDestinationFolder = (name) => {
   else if (name == 'fluffy-car-import-nz') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-car-import-pdm') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-motorcycles') return `[fluffy-moddedcars]/${name}`
+  else if (name == 'illenium-appearance') return `[spawn]/${name}`
+  else if (name == 'ox_lib') return `[spawn]/${name}`
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
   else if (name == 'fluffy-casino') return `[fluffy]/[fluffy-casino]`
 
