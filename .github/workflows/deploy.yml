@@ -86,15 +86,6 @@ jobs:
           rm -rf ${{ matrix.path }}/.git
           rm -rf ${{ matrix.path }}/.github
           rm -f ${{ matrix.path }}/.gitattributes
-
-      - name: Delete related qb resource 
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          port: ${{ secrets.DEPLOY_PORT }}
-          script: find /opt/fivem_resources/resources -maxdepth 2 -type d -name "${{ matrix.qb }}*" | grep -v 'fluffy' | xargs rm -rf
       
       - uses: FluffyTal-es/fluffy-auto-release@latest
         if: ${{ github.event.inputs.repo != 'all' }} 
