@@ -33,6 +33,7 @@ const getRemoteDestinationFolder = (name) => {
   else if (name.indexOf('configs') !== -1) return '[configs]'
   else if (isResourceForSpawn(name)) return `[spawn]/${name}`
   else if (name == 'saltychat') return `[standalone]/${name}`
+  else if (name == 'saltynui') return `[standalone]/${name}`
   else if (name == 'fluffy-mlos') return '[fluffy-mlos]/[fluffy-mlos]'
   else if (name == 'fluffy-mlos-frak') return '[fluffy-mlos]/[fluffy-mlos-frak]'
   else if (name == 'fluffy-mlos-mapping') return '[fluffy-mlos]/[fluffy-mlos-mapping]'
