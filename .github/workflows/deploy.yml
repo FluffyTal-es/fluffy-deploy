@@ -47,7 +47,7 @@ jobs:
         path: status.json
 
     - name: Fetch local action
-      uses: actions/checkout@v3
+      uses: actions/checkout@master
 
     - name: Find repos to deploy
       uses: ./
@@ -71,6 +71,7 @@ jobs:
           token: ${{ secrets.DEPLOY_TOKEN }}
           path:  ${{ matrix.path }}
           ref: 'develop'
+          lfs: 'true'
 
       - name: Clone resource repository from main branch
         uses: actions/checkout@master
@@ -80,6 +81,7 @@ jobs:
           token: ${{ secrets.DEPLOY_TOKEN }}
           path:  ${{ matrix.path }}
           ref: 'main'
+          lfs: 'true'
       
       - name: Remove git folders
         run: | 
