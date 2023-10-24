@@ -42,6 +42,7 @@ const getRemoteDestinationFolder = (name) => {
   else if (name == 'fluffy-addonkleidung') return `[fluffy-addonkleidung]`
   else if (name == 'fluffy-moddedcars') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-car-addons') return '[fluffy-moddedcars]/[fluffy-car-addons]'
+  else if (name == 'fluffy-car-pdmd') return '[fluffy-moddedcars]/[fluffy-car-pdmd]'
   else if (name == 'fluffy-car-event') return `[fluffy-moddedcars]/${name}`
   else if (name == 'illenium-appearance') return `[spawn]/${name}`
   else if (name == 'ox_lib') return `[spawn]/${name}`
