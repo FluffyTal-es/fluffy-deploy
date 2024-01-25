@@ -23,7 +23,6 @@ const determineFolder = (name) => {
   else if (name.indexOf('configs') !== -1) return '[configs]'
   else if (isResourceForSpawn(name)) return '[spawn]'
   else if (name == 'saltychat') return '[standalone]'
-  else if (name == 'BigDaddy-VehicleDamage') return `[standalone]/${name}`
   else return '[fluffy]'
 }
 
