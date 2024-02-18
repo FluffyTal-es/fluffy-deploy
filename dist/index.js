@@ -8350,20 +8350,12 @@ const getRemoteDestinationFolder = (name) => {
   else if (name.indexOf('dev') !== -1) return `[dev]/${name}`
   else if (name.indexOf('configs') !== -1) return '[configs]'
   else if (isResourceForSpawn(name)) return `[spawn]/${name}`
-  else if (name == 'saltychat') return `[standalone]/${name}`
-  else if (name == 'saltynui') return `[standalone]/${name}`
-  else if (name == 'fluffy-mlos') return '[fluffy-mlos]/[fluffy-mlos]'
-  else if (name == 'fluffy-mlos-frak') return '[fluffy-mlos]/[fluffy-mlos-frak]'
-  else if (name == 'fluffy-mlos-mapping')
-    return '[fluffy-mlos]/[fluffy-mlos-mapping]'
-  else if (name == 'fluffy-mlos-gabz') return '[fluffy-mlos]/[fluffy-mlos-gabz]'
+  else if (name.indexOf('salty') !== -1) return `[standalone]/${name}`
+  else if (name.indexOf('fluffy-mlos') !== -1) return `[fluffy-mlos]/[${name}]`
   else if (name.indexOf('fluffy-peds') !== -1) return '[fluffy-peds]'
   else if (name == 'fluffy-addonkleidung') return `[fluffy-addonkleidung]`
-  else if (name == 'fluffy-car-addons')
-    return '[fluffy-moddedcars]/[fluffy-car-addons]'
-  else if (name == 'fluffy-car-pdmd')
-    return '[fluffy-moddedcars]/[fluffy-car-pdmd]'
-  else if (name == 'fluffy-car-event') return `[fluffy-moddedcars]/${name}`
+  else if (name.indexOf('fluffy-car-') !== -1) 
+    return `[fluffy-moddedcars]/[${name}]`
   else if (name == 'illenium-appearance') return `[spawn]/${name}`
   else if (name == 'ox_lib') return `[spawn]/${name}`
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
