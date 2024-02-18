@@ -8345,7 +8345,7 @@ const determineFolder = (name) => {
 }
 
 const getRemoteDestinationFolder = (name) => {
-  if (name.indexOf('job') !== -1 || name.indexOf('17mov' !== -1))
+  if (name.indexOf('job') !== -1 || name.indexOf('17mov_' !== -1))
     return `[jobs]/${name}`
   else if (name.indexOf('dev') !== -1) return `[dev]/${name}`
   else if (name.indexOf('configs') !== -1) return '[configs]'
