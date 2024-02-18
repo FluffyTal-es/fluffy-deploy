@@ -27,12 +27,12 @@ const determineFolder = (name) => {
 }
 
 const getRemoteDestinationFolder = (name) => {
-  if (name.indexOf('job') !== -1) return `[jobs]/${name}`
+  if (name.indexOf('job') !== -1 || name.indexOf('17mov' !== -1))
+    return `[jobs]/${name}`
   else if (name.indexOf('dev') !== -1) return `[dev]/${name}`
   else if (name.indexOf('configs') !== -1) return '[configs]'
   else if (isResourceForSpawn(name)) return `[spawn]/${name}`
   else if (name == 'saltychat') return `[standalone]/${name}`
-  else if (name == 'BigDaddy-VehicleDamage') return `[standalone]/${name}`
   else if (name == 'saltynui') return `[standalone]/${name}`
   else if (name == 'fluffy-mlos') return '[fluffy-mlos]/[fluffy-mlos]'
   else if (name == 'fluffy-mlos-frak') return '[fluffy-mlos]/[fluffy-mlos-frak]'
