@@ -27,7 +27,7 @@ const determineFolder = (name) => {
 }
 
 const getRemoteDestinationFolder = (name) => {
-  if (name.indexOf('job') !== -1 || name.indexOf('17mov_' !== -1))
+  if (name.indexOf('job') !== -1 || name.indexOf('17mov_') !== -1)
     return `[jobs]/${name}`
   else if (name.indexOf('dev') !== -1) return `[dev]/${name}`
   else if (name.indexOf('configs') !== -1) return '[configs]'
@@ -36,7 +36,7 @@ const getRemoteDestinationFolder = (name) => {
   else if (name.indexOf('fluffy-mlos') !== -1) return `[fluffy-mlos]/[${name}]`
   else if (name.indexOf('fluffy-peds') !== -1) return '[fluffy-peds]'
   else if (name == 'fluffy-addonkleidung') return `[fluffy-addonkleidung]`
-  else if (name.indexOf('fluffy-car-') !== -1) 
+  else if (name.indexOf('fluffy-car-') !== -1)
     return `[fluffy-moddedcars]/[${name}]`
   else if (name == 'illenium-appearance') return `[spawn]/${name}`
   else if (name == 'ox_lib') return `[spawn]/${name}`
