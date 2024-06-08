@@ -8357,11 +8357,11 @@ const getRemoteDestinationFolder = (name) => {
   else if (name == 'fluffy-firedepartment') return `[jobs]/[${name}]`
   else if (name == 'fluffy-car-addons') return '[fluffy-moddedcars]/[fluffy-car-addons]'
   else if (name == 'fluffy-car-pdmd') return '[fluffy-moddedcars]/[fluffy-car-pdmd]'
-  else if (name == 'fluffy-car-taxi') return '[fluffy-moddedcars]/${name}'
   else if (name == 'fluffy-car-event') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-cars-fd') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-cars-pd-cc') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-cars-md-dl') return `[fluffy-moddedcars]/${name}`
+  else if (name == 'fluffy-car-taxi') return `[fluffy-moddedcars]/${name}`
   else if (name == 'illenium-appearance') return `[spawn]/${name}`
   else if (name == 'ox_lib') return `[spawn]/${name}`
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
