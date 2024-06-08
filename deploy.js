@@ -40,6 +40,8 @@ const getRemoteDestinationFolder = (name) => {
     return '[fluffy-moddedcars]/[fluffy-car-addons]'
   else if (name == 'fluffy-car-pdmd')
     return '[fluffy-moddedcars]/[fluffy-car-pdmd]'
+  else if (name == 'fluffy-car-taxi')
+    return '[fluffy-moddedcars]/[fluffy-car-taxi]'
   else if (name == 'fluffy-firedepartment') return `[jobs]/[${name}]`
   else if (name == 'fluffy-car-event') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-cars-fd') return `[fluffy-moddedcars]/${name}`
