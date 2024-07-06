@@ -48,6 +48,7 @@ const getRemoteDestinationFolder = (name) => {
   else if (name == 'fluffy-car-taxi') return `[fluffy-moddedcars]/${name}`
   else if (name == 'illenium-appearance') return `[spawn]/${name}`
   else if (name == 'ox_lib') return `[spawn]/${name}`
+  else if (name == 'meta_libs') return `[spawn]/${name}`
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
   else if (name == 'fluffy-casino') return `[fluffy]/[fluffy-casino]`
   else if (name == 'fluffy-ps-housing') return `[fluffy]/[fluffy-ps-housing]`
