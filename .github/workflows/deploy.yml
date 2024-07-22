@@ -99,7 +99,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: fluffytales
+          name: fluffyv
           path: '.'
 
   push:
@@ -111,7 +111,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: fluffytales
+          name: fluffyv
 
       - name: "Deploy resources to live server"
         if: ${{ github.event.inputs.live == 'yes' && env.REMOTE_PATH != false }}
@@ -183,8 +183,78 @@ jobs:
           rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
           rm ~/.ssh/id_github
 
+      - name: "Deploy resources to fluffyv.dev live server"
+        if: ${{ github.event.inputs.live == 'yes' && env.REMOTE_PATH != false }}
+        env:
+          remote_host: ${{ secrets.FLUFFY_DEV_HOST }}
+          remote_port: ${{ secrets.FLUFFY_DEV_PORT }}
+          remote_user: ${{ secrets.FLUFFY_DEV_USER }}
+          remote_key: ${{ secrets.FLUFFY_DEV_SSH_KEY }}
+          local_dir: "."
+          remote_dir: "/opt/containers/fivem-live/data"
+        run: |
+          mkdir ~/.ssh
+          echo $( dirname ${{ matrix.path }} )
+          echo "$remote_key" > ~/.ssh/id_github
+          chmod 600 ~/.ssh/id_github
+          cd ${{ matrix.path }}
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
+          rm ~/.ssh/id_github
+
+      - name: "Deploy resources to fluffyv.dev development server"
+        if: ${{ github.event.inputs.live != 'yes' && env.REMOTE_PATH != false }}
+        env:
+          remote_host: ${{ secrets.FLUFFY_DEV_HOST }}
+          remote_port: ${{ secrets.FLUFFY_DEV_PORT }}
+          remote_user: ${{ secrets.FLUFFY_DEV_USER }}
+          remote_key: ${{ secrets.FLUFFY_DEV_SSH_KEY }}
+          local_dir: "."
+          remote_dir: "/opt/containers/fivem-dev/data"
+        run: |
+          mkdir ~/.ssh
+          echo "$remote_key" > ~/.ssh/id_github
+          chmod 600 ~/.ssh/id_github
+          cd ${{ matrix.path }}
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
+          rm ~/.ssh/id_github
+      
+      - name: "Deploy resources to fluffyv.dev live server"
+        if: ${{ github.event.inputs.live == 'yes' && env.REMOTE_PATH == false  }}
+        env:
+          remote_host: ${{ secrets.FLUFFY_DEV_HOST }}
+          remote_port: ${{ secrets.FLUFFY_DEV_PORT }}
+          remote_user: ${{ secrets.FLUFFY_DEV_USER }}
+          remote_key: ${{ secrets.FLUFFY_DEV_SSH_KEY }}
+          local_dir: "."
+          remote_dir: "/opt/containers/fivem-dev/data"
+        run: |
+          echo $REMOTE_PATH
+          mkdir ~/.ssh
+          echo "$remote_key" > ~/.ssh/id_github
+          chmod 600 ~/.ssh/id_github
+          cd ${{ matrix.path }}
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
+          rm ~/.ssh/id_github
+
+      - name: "Deploy resources to fluffyv.dev development server"
+        if: ${{ github.event.inputs.live != 'yes' && env.REMOTE_PATH == false }}
+        env:
+          remote_host: ${{ secrets.FLUFFY_DEV_HOST }}
+          remote_port: ${{ secrets.FLUFFY_DEV_PORT }}
+          remote_user: ${{ secrets.FLUFFY_DEV_USER }}
+          remote_key: ${{ secrets.FLUFFY_DEV_SSH_KEY }}
+          local_dir: "."
+          remote_dir: "/opt/containers/fivem-dev/data"
+        run: |
+          mkdir ~/.ssh
+          echo "$remote_key" > ~/.ssh/id_github
+          chmod 600 ~/.ssh/id_github
+          cd ${{ matrix.path }}
+          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
+          rm ~/.ssh/id_github
+
       - name: "Clean up"
         if: always()
         uses: geekyeggo/delete-artifact@v1
         with:
-          name: fluffytales
+          name: fluffyv
