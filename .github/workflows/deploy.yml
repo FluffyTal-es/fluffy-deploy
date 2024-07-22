@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: 'Prepare message'
         run: |
-          declare -A autor=( [derkleinlord]=331503616600965121 [devs]=&959103824495280139 [Zimpi]=120607493528354818 [Salzgardist]=212296010146250753 [kazimir]=202167314823512064 ["schroenser"]=237608984998182914 [dominicrico]=396744310768271381 )
+          declare -A autor=( [derkleinlord]=331503616600965121 [devs]="&959103824495280139" [Zimpi]=120607493528354818 [Salzgardist]=212296010146250753 [kazimir]=202167314823512064 ["schroenser"]=237608984998182914 [dominicrico]=396744310768271381 )
           echo {\"actor\":\""${autor[${{github.event.inputs.actor}}]}"\", \"repo\":\"${{github.event.inputs.repo}}\", \"live\":\"${{github.event.inputs.live}}\"} > status.json
 
       - uses: actions/upload-artifact@v2
