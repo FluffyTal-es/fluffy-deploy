@@ -61,6 +61,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+    outputs:
+      commit_sha: ${{ steps.get-sha.outputs.commit_sha }}
 
     steps:
       - name: Clone resource repository from develop branch
@@ -88,14 +90,27 @@ jobs:
           rm -rf ${{ matrix.path }}/.git
           rm -rf ${{ matrix.path }}/.github
           rm -f ${{ matrix.path }}/.gitattributes
+          rm -f ${{ matrix.path }}/Readme.md
+          find ${{ matrix.path }} -type f -iname "readme.md" -exec rm {} +
 
+      - name: Get commit SHA
+        id: get-sha
+        run: echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [prepare, clone]
+    strategy:
+      matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+    steps:
       - uses: FluffyTal-es/fluffy-auto-release@latest
+        needs: get-sha
         if: ${{ github.event.inputs.repo != 'all' }}
         with:
           repo_token: '${{ secrets.DEPLOY_TOKEN }}'
           automatic_release_tag: 'latest'
           repository: ${{ matrix.name }}
-          sha: ${{ github.event.inputs.sha }}
+          sha: ${{ needs.clone.outputs.commit_sha }}
 
       - uses: actions/upload-artifact@v2
         with:
@@ -103,7 +118,7 @@ jobs:
           path: '.'
 
   push:
-    needs: [prepare, clone]
+    needs: [prepare, clone, release]
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
