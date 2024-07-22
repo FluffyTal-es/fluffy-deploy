@@ -85,14 +85,6 @@ jobs:
           ref: 'main'
           lfs: 'true'
 
-      - name: Remove git folders
-        run: |
-          rm -rf ${{ matrix.path }}/.git
-          rm -rf ${{ matrix.path }}/.github
-          rm -f ${{ matrix.path }}/.gitattributes
-          rm -f ${{ matrix.path }}/Readme.md
-          find ${{ matrix.path }} -type f -iname "readme.md" -exec rm {} +
-
       - name: Determine commit_sha to use
         id: get-sha
         run: |
@@ -101,6 +93,14 @@ jobs:
           else
             echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
           fi
+
+      - name: Remove git folders
+        run: |
+          rm -rf ${{ matrix.path }}/.git
+          rm -rf ${{ matrix.path }}/.github
+          rm -f ${{ matrix.path }}/.gitattributes
+          rm -f ${{ matrix.path }}/Readme.md
+          find ${{ matrix.path }} -type f -iname "readme.md" -exec rm {} +
 
   release:
     needs: [prepare, clone]
