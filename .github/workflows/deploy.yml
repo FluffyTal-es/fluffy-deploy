@@ -69,6 +69,7 @@ jobs:
         uses: actions/checkout@master
         if: ${{ github.event.inputs.live != 'yes' }}
         with:
+          fetch-depth: 0
           repository: FluffyTal-es/${{ matrix.name }}
           token: ${{ secrets.DEPLOY_TOKEN }}
           path: ${{ matrix.path }}
@@ -79,6 +80,7 @@ jobs:
         uses: actions/checkout@master
         if: ${{ github.event.inputs.live == 'yes' }}
         with:
+          fetch-depth: 0
           repository: FluffyTal-es/${{ matrix.name }}
           token: ${{ secrets.DEPLOY_TOKEN }}
           path: ${{ matrix.path }}
