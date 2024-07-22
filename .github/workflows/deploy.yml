@@ -93,15 +93,21 @@ jobs:
           rm -f ${{ matrix.path }}/Readme.md
           find ${{ matrix.path }} -type f -iname "readme.md" -exec rm {} +
 
-      - name: Get commit SHA
+      - name: Determine value to use
         id: get-sha
-        run: echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
+        run: |
+          if [ "${{ github.event.inputs.sha }}" != "" ]; then
+            echo "::set-output name=value::${{ github.event.inputs.sha }}"
+          else
+            echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
+          fi
 
   release:
-    runs-on: ubuntu-latest
     needs: [prepare, clone]
+    runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
+
     steps:
       - uses: FluffyTal-es/fluffy-auto-release@latest
         needs: get-sha
