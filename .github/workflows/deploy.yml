@@ -91,7 +91,7 @@ jobs:
           if [ "${{ github.event.inputs.sha }}" != "" ]; then
             echo "::set-output name=commit_sha::${{ github.event.inputs.sha }}"
           else
-            echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
+            echo "::set-output name=commit_sha::$(git log -1 '--format=format:%H')"
           fi
 
       - name: Remove git folders
