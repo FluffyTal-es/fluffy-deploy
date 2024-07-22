@@ -102,6 +102,11 @@ jobs:
           rm -f ${{ matrix.path }}/Readme.md
           find ${{ matrix.path }} -type f -iname "readme.md" -exec rm {} +
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: fluffyv
+          path: '.'
+
   release:
     needs: [prepare, clone]
     runs-on: ubuntu-latest
@@ -109,6 +114,10 @@ jobs:
       matrix: ${{ fromJson(needs.prepare.outputs.matrix) }}
 
     steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: fluffyv
+
       - uses: FluffyTal-es/fluffy-auto-release@latest
         if: ${{ github.event.inputs.repo != 'all' }}
         with:
@@ -116,11 +125,6 @@ jobs:
           automatic_release_tag: 'latest'
           repository: ${{ matrix.name }}
           sha: ${{ needs.clone.outputs.commit_sha }}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: fluffyv
-          path: '.'
 
   push:
     needs: [prepare, clone, release]
