@@ -110,7 +110,6 @@ jobs:
 
     steps:
       - uses: FluffyTal-es/fluffy-auto-release@latest
-        needs: get-sha
         if: ${{ github.event.inputs.repo != 'all' }}
         with:
           repo_token: '${{ secrets.DEPLOY_TOKEN }}'
