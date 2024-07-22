@@ -191,7 +191,7 @@ jobs:
           remote_user: ${{ secrets.FLUFFY_DEV_USER }}
           remote_key: ${{ secrets.FLUFFY_DEV_SSH_KEY }}
           local_dir: '.'
-          remote_dir: '/opt/containers/fivem-live/data'
+          remote_dir: '/opt/containers/fivem-live/data/fivem'
         run: |
           mkdir -p ~/.ssh
           echo $( dirname ${{ matrix.path }} )
@@ -209,7 +209,7 @@ jobs:
           remote_user: ${{ secrets.FLUFFY_DEV_USER }}
           remote_key: ${{ secrets.FLUFFY_DEV_SSH_KEY }}
           local_dir: '.'
-          remote_dir: '/opt/containers/fivem-dev/data'
+          remote_dir: '/opt/containers/fivem-dev/data/fivem'
         run: |
           mkdir -p ~/.ssh
           echo "$remote_key" > ~/.ssh/id_github
@@ -226,7 +226,7 @@ jobs:
           remote_user: ${{ secrets.FLUFFY_DEV_USER }}
           remote_key: ${{ secrets.FLUFFY_DEV_SSH_KEY }}
           local_dir: '.'
-          remote_dir: '/opt/containers/fivem-dev/data'
+          remote_dir: '/opt/containers/fivem-dev/data/fivem'
         run: |
           echo $REMOTE_PATH
           mkdir -p ~/.ssh
@@ -244,7 +244,7 @@ jobs:
           remote_user: ${{ secrets.FLUFFY_DEV_USER }}
           remote_key: ${{ secrets.FLUFFY_DEV_SSH_KEY }}
           local_dir: '.'
-          remote_dir: '/opt/containers/fivem-dev/data'
+          remote_dir: '/opt/containers/fivem-dev/data/fivem'
         run: |
           mkdir -p ~/.ssh
           echo "$remote_key" > ~/.ssh/id_github
