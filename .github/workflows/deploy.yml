@@ -93,11 +93,11 @@ jobs:
           rm -f ${{ matrix.path }}/Readme.md
           find ${{ matrix.path }} -type f -iname "readme.md" -exec rm {} +
 
-      - name: Determine value to use
+      - name: Determine commit_sha to use
         id: get-sha
         run: |
           if [ "${{ github.event.inputs.sha }}" != "" ]; then
-            echo "::set-output name=value::${{ github.event.inputs.sha }}"
+            echo "::set-output name=commit_sha::${{ github.event.inputs.sha }}"
           else
             echo "::set-output name=commit_sha::$(git rev-parse HEAD)"
           fi
