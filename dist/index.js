@@ -8354,15 +8354,17 @@ const getRemoteDestinationFolder = (name) => {
   else if (name.indexOf('fluffy-mlos') !== -1) return `[fluffy-mlos]/[${name}]`
   else if (name.indexOf('fluffy-peds') !== -1) return '[fluffy-peds]'
   else if (name == 'fluffy-addonkleidung') return `[fluffy-addonkleidung]`
-  else if (name == 'fluffy-firedepartment') return `[jobs][${name}]`
+  else if (name == 'fluffy-firedepartment') return `[jobs]/[${name}]`
   else if (name == 'fluffy-car-addons') return '[fluffy-moddedcars]/[fluffy-car-addons]'
   else if (name == 'fluffy-car-pdmd') return '[fluffy-moddedcars]/[fluffy-car-pdmd]'
   else if (name == 'fluffy-car-event') return `[fluffy-moddedcars]/${name}`
-  else if (name == 'fluffy-cars-fd') return `[fluffy-moddedcars]/[${name}]`
+  else if (name == 'fluffy-cars-fd') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-cars-pd-cc') return `[fluffy-moddedcars]/${name}`
   else if (name == 'fluffy-cars-md-dl') return `[fluffy-moddedcars]/${name}`
+  else if (name == 'fluffy-car-taxi') return `[fluffy-moddedcars]/${name}`
   else if (name == 'illenium-appearance') return `[spawn]/${name}`
   else if (name == 'ox_lib') return `[spawn]/${name}`
+  else if (name == 'meta_libs') return `[spawn]/${name}`
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
   else if (name == 'fluffy-casino') return `[fluffy]/[fluffy-casino]`
   else if (name == 'fluffy-ps-housing') return `[fluffy]/[fluffy-ps-housing]`
