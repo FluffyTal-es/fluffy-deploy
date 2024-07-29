@@ -152,7 +152,7 @@ jobs:
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
           cd ${{ matrix.path }}
-          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
+          rsync -avzrIO --delete --exclude 'node_modules/' --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
           rm ~/.ssh/id_github
 
       - name: 'Deploy resources to development server'
@@ -169,7 +169,7 @@ jobs:
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
           cd ${{ matrix.path }}
-          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
+          rsync -avzrIO --delete --exclude 'node_modules/' --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
           rm ~/.ssh/id_github
 
       - name: 'Deploy resources to live server'
@@ -187,7 +187,7 @@ jobs:
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
           cd ${{ matrix.path }}
-          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
+          rsync -avzrIO --delete --exclude 'node_modules/' --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
           rm ~/.ssh/id_github
 
       - name: 'Deploy resources to development server'
@@ -204,7 +204,7 @@ jobs:
           echo "$remote_key" > ~/.ssh/id_github
           chmod 600 ~/.ssh/id_github
           cd ${{ matrix.path }}
-          rsync -avzrIO --delete --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
+          rsync -avzrIO --delete --exclude 'node_modules/' --no-perms -e "ssh -p ${remote_port} -i ~/.ssh/id_github -o StrictHostKeyChecking=no" . ${remote_user}@${remote_host}:${remote_dir}/${{ matrix.remotePath }}
           rm ~/.ssh/id_github
 
       - name: 'Deploy resources to fluffyv.dev live server'
