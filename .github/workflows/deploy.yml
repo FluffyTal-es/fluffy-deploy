@@ -45,6 +45,7 @@ jobs:
         with:
           name: status
           path: status.json
+          include-hidden-files: true
 
       - name: Fetch local action
         uses: actions/checkout@master
@@ -106,6 +107,7 @@ jobs:
         with:
           name: fluffyv
           path: '.'
+          include-hidden-files: true
 
   release:
     needs: [prepare, clone]
