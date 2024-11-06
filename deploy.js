@@ -23,6 +23,7 @@ const determineFolder = (name) => {
   else if (name.indexOf('configs') !== -1) return '[configs]'
   else if (isResourceForSpawn(name)) return '[spawn]'
   else if (name == 'saltychat') return '[standalone]'
+  else if (name == 'bob74_ipl') return '[standalone]'
   else return '[fluffy]'
 }
 
@@ -54,6 +55,7 @@ const getRemoteDestinationFolder = (name) => {
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
   else if (name == 'fluffy-casino') return `[fluffy]/[fluffy-casino]`
   else if (name == 'fluffy-ps-housing') return `[fluffy]/[fluffy-ps-housing]`
+  else if (name == 'bob74_ipl') return `[standalone]/${name}`
   else return `[fluffy]/${name}`
 }
 
