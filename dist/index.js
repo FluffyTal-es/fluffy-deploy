@@ -8372,6 +8372,7 @@ const getRemoteDestinationFolder = (name) => {
   else if (name == 'meta_libs') return `[spawn]/${name}`
   else if (name == 'fluffy-plasmagame') return `[fluffy]/[fluffy-plasmagame]`
   else if (name == 'fluffy-casino') return `[fluffy]/[fluffy-casino]`
+  else if (name == 'qs-housing') return `[fluffy]/[qs-housing]`
   else if (name == 'fluffy-ps-housing') return `[fluffy]/[fluffy-ps-housing]`
   else if (name == 'bob74_ipl') return `[standalone]/${name}`
   else return `[fluffy]/${name}`
